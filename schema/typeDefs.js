@@ -2,7 +2,7 @@ const {gql} = require('apollo-server-express')
 
 const typeDefs = gql`
 
-	#USER AND AUTH typeDefs
+	#USER AND AUTH typeDefs-----------------------------------
 
 	type User{
 		user_id : Int!
@@ -27,7 +27,7 @@ const typeDefs = gql`
 	}
 
 
-	#CHAT typeDefs
+	#CHAT typeDefs------------------------------------------
 
 	type Message{
 		_id: String!
@@ -56,7 +56,7 @@ const typeDefs = gql`
 	}
 
 
-	#VEHICLE typeDefs
+	#VEHICLE typeDefs--------------------------------------
 
 	type Vehicle{
 		vehicleId:	Int!
@@ -95,7 +95,7 @@ const typeDefs = gql`
 	}
 
 
-
+	#QUERIES----------------------------------------------
 
 	type Query{
 		userById(user_id: String!): User!		
@@ -104,6 +104,8 @@ const typeDefs = gql`
 		chatById(user_id: String!, chat_id: String!): Chat
 	}
 
+	#MUTATIONS-------------------------------------------
+	
 	type Mutation{
 		loginUser(credentials: loginInput!): String!
     	registerUser(user: registerInput!): User!
