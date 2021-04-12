@@ -39,11 +39,20 @@ const resolvers = {
 
 
 
-		createChat(chat){
+		createChat: async (_, {chat}) => {
+			console.log({chat})
+			const result = await axios.post(`${URLChat}`, chat)
+			.then(res => res.data);
 
+			return result;
 		},
-		sendMessage(message){
 
+		sendMessage: async (_, {msg}) => {
+			console.log({msg})
+			const result = await axios.put(`${URLChat}`, msg) 
+			.then(res => res.data)
+
+			return result;
 		}
 	}
 };

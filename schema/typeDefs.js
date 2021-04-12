@@ -30,20 +30,20 @@ const typeDefs = gql`
 	#CHAT typeDefs
 
 	type Message{
-		_id: String
-		sender: String
-		content: String
-		createdAt: String
-		updatedAt: String
+		_id: String!
+		sender: String!
+		content: String!
+		createdAt: String!
+		updatedAt: String!
 	}
 	type Chat{
-		_id: String
-		user1: String
-		user2: String
-		active: Boolean
-		conversation: [Message]
-		createdAt: String
-		updatedAt: String
+		_id: String!
+		user1: String!
+		user2: String!
+		active: Boolean!
+		conversation: [Message]!
+		createdAt: String!
+		updatedAt: String!
 	}
 	input chatInput{
 		user1: String!
@@ -54,6 +54,47 @@ const typeDefs = gql`
 		userId: String!
 		content: String!
 	}
+
+
+	#VEHICLE typeDefs
+
+	type Vehicle{
+		vehicleId:	Int!
+		owner:	String!
+		license_plate:	String!
+		vehicle_type:	Int!
+		model:	String!
+		year:	Int!
+		color:	String!
+		registry:	String!
+		picture:	String!
+		capacity:	Int!
+		brand:	String!
+		service_type:	String!
+		body:	String!
+		soat_exp:	String!
+		engine:	Int!
+		gas_type:	String!
+	}
+	input vehicleInput{
+		owner:	String!
+		license_plate:	String!
+		vehicle_type:	Int!
+		model:	String!
+		year:	Int!
+		color:	String!
+		registry:	String!
+		picture:	String
+		capacity:	Int!
+		brand:	String!
+		service_type:	String!
+		body:	String!
+		soat_exp:	String!
+		engine:	Int!
+		gas_type:	String!	
+	}
+
+
 
 
 	type Query{
