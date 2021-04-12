@@ -5,10 +5,16 @@ const URLAuth = `http://${url}:${auth}`;
 const URLPerfil = `http://${url}:${perfil}`;
 const URLChat = `http://${url}:${chat}/conv`;
 
+//TODO: Añadir JWT?????
 const resolvers = {
 	Query: {
+		//TODO: Añadir la imagen antes de devolver resultado?????
 		userById(id){
-			//generalRequest(`${URLPerfil}/${id}`, 'GET')
+			/*
+			const result = await axios.get(`${URLPerfil}/${id}`)
+			.then(res => res.data);
+			return result;
+			*/
 		},
 
 
@@ -26,14 +32,26 @@ const resolvers = {
 		}
 	},
 	Mutation: {
-		loginUser(user){
-			//authorizedRequest(`${URLAuth}/oauth/token`, 'POST', user)
+		loginUser(credentials){
+			/*
+			const result = await axios.post(`${URLAuth}/oauth/token`, credentials, auth: {username: xxx , password: xxx})
+			.then(res => res.data);
+			return result;
+			*/
 		},
 		registerUser(user){
-			//authorizedRequest(`${URLAuth}/api/user/signup`, 'POST', user)
+			/*
+			const result = await axios.post(`${URLAuth}/api/user/signup`, user, auth: {username: xxx , password: xxx})
+			.then(res => res.data);
+			return result;
+			*/
 		},
 		updateUser(user){
-			//generalRequest(`${URLPerfil}/${id}`, 'POST', user)
+			/*
+			const result = await axios.put(`${URLPerfil}/api/user/signup`, user, auth: {username: xxx , password: xxx})
+			.then(res => res.data);
+			return result;
+			*/
 		},
 
 
