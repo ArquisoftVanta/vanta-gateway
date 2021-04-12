@@ -1,4 +1,5 @@
 const { url, auth, perfil, chat } = require('./servers');
+const axios = require('axios')
 
 const URLAuth = `http://${url}:${auth}`;
 const URLPerfil = `http://${url}:${perfil}`;
@@ -11,11 +12,17 @@ const resolvers = {
 		},
 
 
-		chatByUser(id){
 
+		chatByUser: async (_, {user_id}) => {
+			const result = await axios.get(`${URLChat}/${user_id}`)
+			.then(res => res.data);
+			return result;
 		},
-		chatById(user, chat){
 
+		chatById: async(_, {user_id, chat_id}) => {
+			const result = await axios.get(`${URLChat}/${user_id}/${chat_id}`)
+			.then(res => res.data);
+			return result;
 		}
 	},
 	Mutation: {
@@ -28,6 +35,7 @@ const resolvers = {
 		updateUser(user){
 			//generalRequest(`${URLPerfil}/${id}`, 'POST', user)
 		},
+
 
 
 

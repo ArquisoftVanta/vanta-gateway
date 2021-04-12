@@ -10,4 +10,4 @@ const chat = '8600'
 const multimedia = '8700'
 const notificaciones = '8800'
 
-module.exports = {auth, perfil, request, viajes, vehicles, chat, multimedia, notificaciones}
+module.exports = {url, auth, perfil, request, viajes, vehicles, chat, multimedia, notificaciones}

@@ -30,20 +30,20 @@ const typeDefs = gql`
 	#CHAT typeDefs
 
 	type Message{
-		_id: String!
-		sender: String!
-		content: String!
-		createdAt: String!
-		updatedAt: String!
+		_id: String
+		sender: String
+		content: String
+		createdAt: String
+		updatedAt: String
 	}
 	type Chat{
-		_id: String!
-		user1: String!
-		user2: String!
-		messages: [Message]!
-		createdAt: String!
-		updatedAt: String!
-
+		_id: String
+		user1: String
+		user2: String
+		active: Boolean
+		conversation: [Message]
+		createdAt: String
+		updatedAt: String
 	}
 	input chatInput{
 		user1: String!
@@ -59,8 +59,8 @@ const typeDefs = gql`
 	type Query{
 		userById(user_id: String!): User!		
 
-		chatByUser(user_id: String!): Chat!
-		chatById(user_id: String!, chat_id: String!): [Chat]!	
+		chatByUser(user_id: String!): [Chat]
+		chatById(user_id: String!, chat_id: String!): Chat
 	}
 
 	type Mutation{
