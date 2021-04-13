@@ -6,13 +6,15 @@ const typeDefs = gql`
 
 	type User{
 		id_user : Int!
-		name: String!
-		doc: String!
-		phone: String!
-		mail: String!
-		address: String!
-		registerDate: String!
+		rh: String!
 		password: String!
+		picture: String!
+		user_address: String!
+		user_doc: String!
+		user_mail: String!
+		user_name: String!
+		user_phone: String!
+		register_date: String!
 	}
 	input registerInput{
 		userName: String!

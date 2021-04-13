@@ -13,11 +13,9 @@ const resolvers = {
 	Query: {
 		//TODO: Añadir la imagen antes de devolver resultado?????
 		userById(id){
-			/*
 			const result = await axios.get(`${URLPerfil}/${id}`)
 			.then(res => res.data);
 			return result;
-			*/
 		},
 
 
