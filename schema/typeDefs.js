@@ -61,7 +61,7 @@ const typeDefs = gql`
 	#VEHICLE typeDefs--------------------------------------
 
 	type Vehicle{
-		vehicleId:	Int!
+		id:	Int!
 		owner:	String!
 		license_plate:	String!
 		vehicle_type:	Int!
@@ -104,6 +104,10 @@ const typeDefs = gql`
 
 		chatByUser(user_id: String!): [Chat]
 		chatById(user_id: String!, chat_id: String!): Chat
+
+		getVehicle(owner: String!): [Vehicle]!
+		getVehicles: [Vehicle]!
+
 	}
 
 	#MUTATIONS-------------------------------------------
@@ -115,6 +119,10 @@ const typeDefs = gql`
 
     	createChat(chat: chatInput!): Chat!
 		sendMessage(msg: messageInput!): Message!	
+		
+		createVehicle(vehicle: vehicleInput!): Vehicle!
+		updateVehicle(id: Int!, vehicle: vehicleInput!): Vehicle!
+		deleteVehicle(id: Int!): Vehicle
 	}
 
 	`;

@@ -1,5 +1,7 @@
-const { url, auth, perfil, chat } = require('./servers');
-const axios = require('axios')
+const { url, auth, perfil, chat, vehicles } = require('./servers');
+const axios = require('axios');
+const { getVariableValues } = require('graphql/execution/values');
+const URLVehicles = `http://${url}:${vehicles}/vehicles`;
 
 const URLAuth = `http://${url}:${auth}`;
 let config = {headers: {'Authorization': 'Basic dmFudGE6ZHJhZ29uZmx5LXNvZnR3YXJl',
@@ -12,7 +14,7 @@ const URLChat = `http://${url}:${chat}/conv`;
 const resolvers = {
 	Query: {
 		//TODO: Añadir la imagen antes de devolver resultado?????
-		userById(id){
+		userById: async(id)=>{
 			const result = await axios.get(`${URLPerfil}/${id}`)
 			.then(res => res.data);
 			return result;
@@ -29,6 +31,19 @@ const resolvers = {
 		chatById: async(_, {user_id, chat_id}) => {
 			const result = await axios.get(`${URLChat}/${user_id}/${chat_id}`)
 			.then(res => res.data);
+			return result;
+		},
+
+		getVehicle: async(_, {owner}) => {
+			const result = await axios.get(`${URLVehicles}/${owner}`)
+			.then(res => res.data.data);
+			return result;
+		},
+
+		getVehicles: async(_) => {
+			const result = await axios.get(`${URLVehicles}/`)
+			.then(res => res.data.data);
+			console.log(result);
 			return result;
 		}
 	},
@@ -67,7 +82,26 @@ const resolvers = {
 			.then(res => res.data)
 
 			return result;
-		}
+		},
+
+		createVehicle: async (_, {vehicle}) => {
+			const result = await axios.post(`${URLVehicles}`, vehicle) 
+			.then(res => res.data.data);
+			return result;
+		},
+		updateVehicle: async(_, {id, vehicle}) => {
+			const result = await axios.put(`${URLVehicles}/${id}`, vehicle)
+			.then(res => res.data.data);
+			console.log(result);
+			return result;
+		},
+		deleteVehicle: async(_, {id}) => {
+			const result = await axios.delete(`${URLVehicles}/${id}`)
+			.then(res => res.data.data);
+			console.log(result);
+			return result;
+		},
+		
 	}
 };
 
