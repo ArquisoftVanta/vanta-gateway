@@ -96,6 +96,46 @@ const typeDefs = gql`
 		gas_type:	String!	
 	}
 
+	#REQUEST typeDefs--------------------------------------
+	
+	type Request{
+		request_id: Int!
+		user_id: String!
+		service_id: Int
+		date: String!
+		time: String!
+		active: Boolean!
+		registry_request: String!
+	}
+
+	input requestInput{
+		user_id: String!
+		service_id: Int!
+		date: String!
+		time: String!
+		active: Boolean!
+		registry_request: String!
+	}
+
+	#COORDINATES_REQUEST typeDefs-------------------------
+	
+	type Coordinates{
+		coordinates_id:Int!
+		request: Int!
+		lat: String!
+		lng: String!
+		address: String!
+		type: Int!
+	}
+
+	input coordinatesInput{
+		request: Int!
+		lat: String!
+		lng: String!
+		address: String!
+		type: Int!
+	}
+
 
 	#QUERIES----------------------------------------------
 
@@ -107,6 +147,12 @@ const typeDefs = gql`
 
 		getVehicle(owner: String!): [Vehicle]!
 		getVehicles: [Vehicle]!
+
+		getRequestbyUser(user_id: String!): [Request]!
+		getRequestActive(active: Boolean!): [Request]!
+		getRequestbyService(service_id: Int!)[Request]!
+		getRequest(request_id: Int): Request!
+
 
 	}
 
@@ -123,6 +169,14 @@ const typeDefs = gql`
 		createVehicle(vehicle: vehicleInput!): Vehicle!
 		updateVehicle(id: Int!, vehicle: vehicleInput!): Vehicle!
 		deleteVehicle(id: Int!): Vehicle
+
+		createRequest(request: requestInput!): Request!
+		updateRequest(request_id Int!, request: requestInput!): Request!
+		deleteRequest(request_id: Int!): Request
+
+		createCoordinates(coordinate: coordinatesInput!): Coordinates!
+		updateCoordinates(coordinates_id Int!, coordinate: coordinatesInput!): Coordinates!
+
 	}
 
 	`;
