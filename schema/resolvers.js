@@ -2,6 +2,9 @@ const { url, auth, perfil, chat } = require('./servers');
 const axios = require('axios')
 
 const URLAuth = `http://${url}:${auth}`;
+let config = {headers: {'Authorization': 'Basic dmFudGE6ZHJhZ29uZmx5LXNvZnR3YXJl',
+						'Content-Type': 'application/json'}}
+
 const URLPerfil = `http://${url}:${perfil}`;
 const URLChat = `http://${url}:${chat}/conv`;
 
@@ -32,26 +35,21 @@ const resolvers = {
 		}
 	},
 	Mutation: {
-		loginUser(credentials){
-			/*
-			const result = await axios.post(`${URLAuth}/oauth/token`, credentials, auth: {username: xxx , password: xxx})
+		loginUser: async (credentials) => {
+			// auth: {username: "vanta" , password: "dragonfly-software"}
+			const result = await axios.post(`${URLAuth}/oauth/token`, credentials, config)
 			.then(res => res.data);
 			return result;
-			*/
 		},
-		registerUser(user){
-			/*
-			const result = await axios.post(`${URLAuth}/api/user/signup`, user, auth: {username: xxx , password: xxx})
+		registerUser: async (user) => {
+			const result = await axios.post(`${URLAuth}/api/user/signup`, user, config)
 			.then(res => res.data);
 			return result;
-			*/
 		},
-		updateUser(user){
-			/*
-			const result = await axios.put(`${URLPerfil}/api/user/signup`, user, auth: {username: xxx , password: xxx})
+		updateUser: async (user) => {
+			const result = await axios.put(`${URLPerfil}/api/user/signup`, user, config)
 			.then(res => res.data);
 			return result;
-			*/
 		},
 
 

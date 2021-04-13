@@ -5,7 +5,7 @@ const typeDefs = gql`
 	#USER AND AUTH typeDefs-----------------------------------
 
 	type User{
-		user_id : Int!
+		id_user : Int!
 		name: String!
 		doc: String!
 		phone: String!
@@ -105,7 +105,7 @@ const typeDefs = gql`
 	}
 
 	#MUTATIONS-------------------------------------------
-	
+
 	type Mutation{
 		loginUser(credentials: loginInput!): String!
     	registerUser(user: registerInput!): User!
