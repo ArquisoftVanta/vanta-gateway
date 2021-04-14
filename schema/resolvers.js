@@ -1,4 +1,4 @@
-const { url, auth, perfil, chat, vehicles, request } = require('./servers');
+const { url, auth, perfil, chat, vehicles, request, multimedia } = require('./servers');
 const axios = require('axios');
 const { getVariableValues } = require('graphql/execution/values');
 const URLVehicles = `http://${url}:${vehicles}/vehicles`;
@@ -10,6 +10,7 @@ const URLPerfil = `http://${url}:${perfil}`;
 const URLChat = `http://${url}:${chat}/conv`;
 const URLRequest = `http://${url}:${request}`;
 const URLCoordinates = `http://${url}:${request}/coordinates`;
+const URLMultimedia = `http://${url}:${multimedia}`;
 
 //TODO: Añadir JWT?????
 const resolvers = {
@@ -79,6 +80,19 @@ const resolvers = {
 		},
 		getCoordinates: async(_) => {
 			const result = await axios.get(`${URLCoordinates}`)
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		},
+
+		getMultimedias: async(_) => {
+			const result = await axios.get(`${URLMultimedia}/multimedia`)
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		},
+		getMultimedia: async(_, id) => {
+			const result = await axios.get(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
 			console.log(result);
 			return result;
@@ -162,6 +176,13 @@ const resolvers = {
 		},
 		updateCoordinates: async(_, {coordinates_id, coordinate}) => {
 			const result = await axios.put(`${URLCoordinates}/${coordinates_id}`, coordinate)
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		},
+
+		deleteMultimedia: async(_, {id}) => {
+			const result = await axios.put(`${URLMultimedia}/${id}`)
 			.then(res => res.data);
 			console.log(result);
 			return result;
