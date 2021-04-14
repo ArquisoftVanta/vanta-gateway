@@ -36,8 +36,8 @@ const resolvers = {
 			return result;
 		},
 
-		getVehicle: async(_, {owner}) => {
-			const result = await axios.get(`${URLVehicles}/${owner}`)
+		getVehicle: async(_, {id}) => {
+			const result = await axios.get(`${URLVehicles}/${id}`)
 			.then(res => res.data.data);
 			return result;
 		},
@@ -45,7 +45,6 @@ const resolvers = {
 		getVehicles: async(_) => {
 			const result = await axios.get(`${URLVehicles}/`)
 			.then(res => res.data.data);
-			console.log(result);
 			return result;
 		},
 		getRequestbyUser: async(_, {user_id}) => {
