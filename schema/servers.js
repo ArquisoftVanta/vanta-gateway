@@ -1,7 +1,7 @@
 const url = 'localhost'
 const gateway = '8000'
 
-const auth = '8100'
+const auth = '8443'
 const perfil = '8200'
 const request = '8300'
 const viajes = '8400'

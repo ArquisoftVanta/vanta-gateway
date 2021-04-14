@@ -22,6 +22,10 @@ const typeDefs = gql`
 		userPhone: String!
 		userMail: String!
 		password: String!
+		registryDatetime: String
+		picture: String
+		rh: String
+		userAddress: String
 	}
 	input loginInput{
 		username: String!
@@ -107,7 +111,6 @@ const typeDefs = gql`
 		active: Boolean!
 		registry_request: String!
 	}
-
 	input requestInput{
 		user_id: String!
 		service_id: Int
@@ -116,7 +119,6 @@ const typeDefs = gql`
 		active: Boolean!
 		registry_request: String!
 	}
-
 	#COORDINATES_REQUEST typeDefs-------------------------
 	
 	type Coordinates{
@@ -127,7 +129,6 @@ const typeDefs = gql`
 		address: String!
 		type: Int!
 	}
-
 	input coordinatesInput{
 		request: Int!
 		lat: String!
@@ -175,10 +176,8 @@ const typeDefs = gql`
 		createRequest(request: requestInput!): Request!
 		updateRequest(request_id: Int!, request: requestInput!): Request!
 		deleteRequest(request_id: Int!): Request
-
 		createCoordinates(coordinate: coordinatesInput!): Coordinates!
 		updateCoordinates(coordinates_id: Int!, coordinate: coordinatesInput!): Coordinates!
-
 	}
 
 	`;
