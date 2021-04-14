@@ -92,9 +92,10 @@ const resolvers = {
 			return result;
 		},
 		registerUser: async (_, user) => {
-			console.log(user);
-			const result = await axios.post(`${URLAuth}/api/user/signup`, user, config)
+			//console.log(JSON.stringify(user.user));
+			const result = await axios.post(`${URLAuth}/api/user/signup`, JSON.stringify(user.user), config)
 			.then(res => res.data);
+			console.log(result);
 			return result;
 		},
 		updateUser: async (user) => {

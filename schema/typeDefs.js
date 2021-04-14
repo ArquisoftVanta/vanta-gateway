@@ -5,7 +5,7 @@ const typeDefs = gql`
 	#USER AND AUTH typeDefs-----------------------------------
 
 	type User{
-		id_user : Int!
+		id_user : Int
 		rh: String!
 		password: String!
 		picture: String!
@@ -15,6 +15,18 @@ const typeDefs = gql`
 		user_name: String!
 		user_phone: String!
 		register_date: String!
+	}
+	type Auth{
+		idUser: Int!
+		userName: String!
+		userDoc: String!
+		userPhone: String!
+		userMail: String!
+		userAddress: String
+		password: String!
+		registryDatetime: String
+		picture: String
+		rh: String
 	}
 	input registerInput{
 		userName: String!
@@ -28,7 +40,7 @@ const typeDefs = gql`
 		userAddress: String
 	}
 	input loginInput{
-		username: String!
+		usermail: String!
 		password: String!
 	}
 
@@ -163,7 +175,7 @@ const typeDefs = gql`
 
 	type Mutation{
 		loginUser(credentials: loginInput!): String!
-    	registerUser(user: registerInput!): User!
+    	registerUser(user: registerInput!): Auth!
     	updateUser(user: registerInput!): User! 	
 
     	createChat(chat: chatInput!): Chat!
