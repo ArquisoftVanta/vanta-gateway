@@ -110,7 +110,7 @@ const typeDefs = gql`
 
 	input requestInput{
 		user_id: String!
-		service_id: Int!
+		service_id: Int
 		date: String!
 		time: String!
 		active: Boolean!
@@ -150,9 +150,11 @@ const typeDefs = gql`
 
 		getRequestbyUser(user_id: String!): [Request]!
 		getRequestActive(active: Boolean!): [Request]!
-		getRequestbyService(service_id: Int!)[Request]!
+		getRequestbyService(service_id: Int!): [Request]!
 		getRequest(request_id: Int): Request!
-
+		getRequests: [Request]!
+		
+		getCoordinates: [Coordinates]!
 
 	}
 
@@ -171,11 +173,11 @@ const typeDefs = gql`
 		deleteVehicle(id: Int!): Vehicle
 
 		createRequest(request: requestInput!): Request!
-		updateRequest(request_id Int!, request: requestInput!): Request!
+		updateRequest(request_id: Int!, request: requestInput!): Request!
 		deleteRequest(request_id: Int!): Request
 
 		createCoordinates(coordinate: coordinatesInput!): Coordinates!
-		updateCoordinates(coordinates_id Int!, coordinate: coordinatesInput!): Coordinates!
+		updateCoordinates(coordinates_id: Int!, coordinate: coordinatesInput!): Coordinates!
 
 	}
 

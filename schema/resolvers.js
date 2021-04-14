@@ -51,25 +51,37 @@ const resolvers = {
 
 		getRequestbyUser: async(_, {user_id}) => {
 			const result = await axios.get(`${URLRequest}/requestUser/?user=${user_id}`)
-			.then(res => res.data.data);
+			.then(res => res.data);
 			return result;
 		},
 
 		getRequestActive: async(_, {active}) => {
 			const result = await axios.get(`${URLRequest}/requestActive/?active=${active}`)
-			.then(res => res.data.data);
+			.then(res => res.data);
 			return result;
 		},
 
 		getRequestbyService: async(_, {service_id}) => {
 			const result = await axios.get(`${URLRequest}/requestService/?service=${service_id}`)
-			.then(res => res.data.data);
+			.then(res => res.data);
 			return result;
 		},
 
 		getRequest: async(_) => {
 			const result = await axios.get(`${URLRequest}/request`)
-			.then(res => res.data.data);
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		},
+		getRequests: async(_) => {
+			const result = await axios.get(`${URLRequest}/request`)
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		},
+		getCoordinates: async(_) => {
+			const result = await axios.get(`${URLCoordinates}`)
+			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
@@ -132,29 +144,29 @@ const resolvers = {
 		},
 		createRequest: async (_, {request}) => {
 			const result = await axios.post(`${URLRequest}/request/`, request) 
-			.then(res => res.data.data);
+			.then(res => res.data);
 			return result;
 		},
 		updateRequest: async(_, {request_id, request}) => {
 			const result = await axios.put(`${URLRequest}/request/${request_id}`, request)
-			.then(res => res.data.data);
+			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
 		deleteRequest: async(_, {request_id}) => {
 			const result = await axios.delete(`${URLRequest}/request/${request_id}`)
-			.then(res => res.data.data);
+			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
 		createCoordinates: async (_, {coordinate}) => {
 			const result = await axios.post(`${URLCoordinates}`, coordinate) 
-			.then(res => res.data.data);
+			.then(res => res.data);
 			return result;
 		},
 		updateCoordinates: async(_, {coordinates_id, coordinate}) => {
 			const result = await axios.put(`${URLCoordinates}/${coordinates_id}`, request)
-			.then(res => res.data.data);
+			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
