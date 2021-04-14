@@ -157,6 +157,23 @@ const typeDefs = gql`
 		type: Int!
 	}
 
+	#MULTIMEDIA_REQUEST typeDefs-------------------------
+
+	type Multimedias{
+		id: Int!
+		name: String!
+		extension: String!
+		size: Float!
+		location: String!
+	}
+
+	input multimediasInput{
+		name: String!
+		extension: String!
+		size: Double!
+		location: String!
+	}
+
 
 	#QUERIES----------------------------------------------
 
@@ -176,6 +193,9 @@ const typeDefs = gql`
 		getRequests: [Request]!
 		
 		getCoordinates: [Coordinates]!
+
+		getMultimedias: [Multimedias]!
+		getMultimediaById(id: Int!): Multimedias!
 
 	}
 
@@ -198,6 +218,11 @@ const typeDefs = gql`
 		deleteRequest(request_id: Int!): Request
 		createCoordinates(coordinate: coordinatesInput!): Coordinates!
 		updateCoordinates(coordinates_id: Int!, coordinate: coordinatesInput!): Coordinates!
+
+		createMultimedia(file: Upload!): File!
+		updateMultimedia(file: Upload!): File!
+		deleteMultimedia(id: Int!): Multimedia
+		
 	}
 
 	`;
