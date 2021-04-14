@@ -209,7 +209,7 @@ const resolvers = {
 			const result = await axios.delete(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
 			return result;
-		}
+		},
 
 
 		//-------------------------------------------------------------------------------------------------------
@@ -217,10 +217,16 @@ const resolvers = {
 		//-------------------------------------------------------------------------------------------------------
 
 		newVehicle: async(_, {vehicle}) =>{
-			const userChecker = await axios.get(`${URLPerfil}/user/?user_mail=${vehicle.owner}`)
-			.then(res => res.data);
+			var userChecker;
+
+			try {
+				userChecker = await axios.get(`${URLPerfil}/user/?user_mail=${vehicle.owner}`)
+				.then(res => res.data);
+			} catch (error) {
+				userChecker = false
+			}
 			
-			if(usrChecker){
+			if(userChecker){
 				const result = await axios.post(`${URLVehicles}`, vehicle) 
 				.then(res => res.data.data);
 				return result;

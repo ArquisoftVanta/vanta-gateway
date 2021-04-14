@@ -213,6 +213,8 @@ const typeDefs = gql`
 		updateVehicle(id: Int!, vehicle: vehicleInput!): Vehicle!
 		deleteVehicle(id: Int!): Vehicle
 
+		newVehicle(vehicle: vehicleInput!): Vehicle!
+
 		createRequest(request: requestInput!): Request!
 		updateRequest(request_id: Int!, request: requestInput!): Request!
 		deleteRequest(request_id: Int!): Request
