@@ -65,8 +65,8 @@ const resolvers = {
 			return result;
 		},
 
-		getRequest: async(_) => {
-			const result = await axios.get(`${URLRequest}/request`)
+		getRequest: async (_, {request_id}) => {
+			const result = await axios.get(`${URLRequest}/request/${request_id}`)
 			.then(res => res.data);
 			console.log(result);
 			return result;
@@ -139,23 +139,6 @@ const resolvers = {
 			console.log(result);
 			return result;
 		},
-		createVehicle: async (_, {vehicle}) => {
-			const result = await axios.post(`${URLVehicles}`, vehicle) 
-			.then(res => res.data.data);
-			return result;
-		},
-		updateVehicle: async(_, {id, vehicle}) => {
-			const result = await axios.put(`${URLVehicles}/${id}`, vehicle)
-			.then(res => res.data.data);
-			console.log(result);
-			return result;
-		},
-		deleteVehicle: async(_, {id}) => {
-			const result = await axios.delete(`${URLVehicles}/${id}`)
-			.then(res => res.data.data);
-			console.log(result);
-			return result;
-		},
 		createRequest: async (_, {request}) => {
 			const result = await axios.post(`${URLRequest}/request/`, request) 
 			.then(res => res.data);
@@ -174,12 +157,12 @@ const resolvers = {
 			return result;
 		},
 		createCoordinates: async (_, {coordinate}) => {
-			const result = await axios.post(`${URLCoordinates}`, coordinate) 
+			const result = await axios.post(`${URLCoordinates}/`, coordinate) 
 			.then(res => res.data);
 			return result;
 		},
 		updateCoordinates: async(_, {coordinates_id, coordinate}) => {
-			const result = await axios.put(`${URLCoordinates}/${coordinates_id}`, request)
+			const result = await axios.put(`${URLCoordinates}/${coordinates_id}`, coordinate)
 			.then(res => res.data);
 			console.log(result);
 			return result;
