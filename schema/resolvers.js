@@ -28,7 +28,6 @@ const resolvers = {
 			.then(res => res.data);
 			return result;
 		},
-
 		chatById: async(_, {user_id, chat_id}) => {
 			const result = await axios.get(`${URLChat}/${user_id}/${chat_id}`)
 			.then(res => res.data);
@@ -42,7 +41,6 @@ const resolvers = {
 			.then(res => res.data.data);
 			return result;
 		},
-
 		getVehicles: async(_) => {
 			const result = await axios.get(`${URLVehicles}/`)
 			.then(res => res.data.data);
@@ -56,33 +54,28 @@ const resolvers = {
 			.then(res => res.data);
 			return result;
 		},
-
 		getRequestActive: async(_, {active}) => {
 			const result = await axios.get(`${URLRequest}/requestActive/?active=${active}`)
 			.then(res => res.data);
 			return result;
 		},
-
 		getRequestbyService: async(_, {service_id}) => {
 			const result = await axios.get(`${URLRequest}/requestService/?service=${service_id}`)
 			.then(res => res.data);
 			return result;
 		},
-
 		getRequest: async (_, {request_id}) => {
 			const result = await axios.get(`${URLRequest}/request/${request_id}`)
 			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
-
 		getRequests: async(_) => {
 			const result = await axios.get(`${URLRequest}/request`)
 			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
-
 		getCoordinates: async(_) => {
 			const result = await axios.get(`${URLCoordinates}`)
 			.then(res => res.data);
@@ -97,7 +90,6 @@ const resolvers = {
 			.then(res => res.data);
 			return result;
 		},
-
 		getMultimedia: async(_, {id}) => {
 			const result = await axios.get(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
@@ -112,13 +104,11 @@ const resolvers = {
 			.then(res => res.data);
 			return result;
 		},
-
 		registerUser: async (_, user) => {
 			const result = await axios.post(`${URLAuth}/api/user/signup`, JSON.stringify(user.user), config)
 			.then(res => res.data);
 			return result;
 		},
-
 		updateUser: async (user) => {
 			const result = await axios.put(`${URLPerfil}/api/user/signup`, user, config)
 			.then(res => res.data);
@@ -135,7 +125,6 @@ const resolvers = {
 
 			return result;
 		},
-
 		sendMessage: async (_, {msg}) => {
 			console.log({msg})
 			const result = await axios.put(`${URLChat}`, msg) 
@@ -220,6 +209,24 @@ const resolvers = {
 			const result = await axios.delete(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
 			return result;
+		}
+
+
+		//-------------------------------------------------------------------------------------------------------
+		//--------------------------------------RESOLVERS WITH MULTIPLE CALLS------------------------------------
+		//-------------------------------------------------------------------------------------------------------
+
+		newVehicle: async(_, {vehicle}) =>{
+			const userChecker = await axios.get(`${URLPerfil}/user/?user_mail=${vehicle.owner}`)
+			.then(res => res.data);
+			
+			if(usrChecker){
+				const result = await axios.post(`${URLVehicles}`, vehicle) 
+				.then(res => res.data.data);
+				return result;
+			}else{
+				return new Error('Username not valid')
+			}	
 		}
 		
 	}
