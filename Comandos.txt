@@ -16,8 +16,8 @@ Cesar - Profile:
  - Run: docker-compose up
 
 Mauro - Chat:
- - Build:
- - Run: 
+ - Build: docker build -t chat_ms .
+ - Run: sudo docker run --network='host -p 8600:86000 chat_ms
 
 Cristian - Service:
  - Build: 

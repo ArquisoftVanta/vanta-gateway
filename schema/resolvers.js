@@ -147,20 +147,24 @@ const resolvers = {
 
 		//VEHICLE M ----------------------------------------------------------------------
 		createVehicle: async (_, {vehicle}) => {
-			var usrChecker = await resolvers.Query.userById(vehicle.owner)
 
-			var imgChecker = true
+/*			console.log(vehicle);
+			var usrChecker = await resolvers.Query.userById({user_id: vehicle.owner})
+
+			/*var imgChecker = true
 			if(vehicle.picture != "" && vehicle.picture != null){
 				imgChecker = await resolvers.Query.getMultimedia(vehicle.picture) 
 			}
 
-			if(usrChecker && imgChecker){
-				const result = await axios.post(`${URLVehicles}`, vehicle) 
-				.then(res => res.data.data);
-				return result;
+			if(usrChecker ){
+
 			}else{
 				return new Error('Username or Picture not valid')
-			}
+			}*/
+
+			const result = await axios.post(`${URLVehicles}`, vehicle) 
+			.then(res => res.data.data);
+			return result;
 			
 		},
 		updateVehicle: async(_, {id, vehicle}) => {
