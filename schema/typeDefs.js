@@ -108,7 +108,7 @@ const typeDefs = gql`
 		service_id: Int
 		date: String!
 		time: String!
-		active: Boolean!
+		active: String!
 		registry_request: String!
 	}
 	input requestInput{
@@ -116,7 +116,7 @@ const typeDefs = gql`
 		service_id: Int
 		date: String!
 		time: String!
-		active: Boolean!
+		active: String!
 		registry_request: String!
 	}
 	#COORDINATES_REQUEST typeDefs-------------------------
@@ -150,7 +150,7 @@ const typeDefs = gql`
 		getVehicles: [Vehicle]!
 
 		getRequestbyUser(user_id: String!): [Request]!
-		getRequestActive(active: Boolean!): [Request]!
+		getRequestActive(active: String!): [Request]!
 		getRequestbyService(service_id: Int!): [Request]!
 		getRequest(request_id: Int): Request!
 		getRequests: [Request]!
