@@ -12,10 +12,9 @@ const URLRequest = `http://${url}:${request}`;
 const URLCoordinates = `http://${url}:${request}/coordinates`;
 const URLMultimedia = `http://${url}:${multimedia}`;
 
-//TODO: Añadir JWT?????
 const resolvers = {
 	Query: {
-		//TODO: Añadir la imagen antes de devolver resultado?????
+		//USER Q ----------------------------------------------------------------------
 		userById: async(_, {user_id})=>{
 			const result = await axios.get(`${URLPerfil}/user/?user_mail=${user_id}`)
 			.then(res => res.data);
@@ -23,7 +22,7 @@ const resolvers = {
 		},
 
 
-
+		//CHAT Q ----------------------------------------------------------------------
 		chatByUser: async (_, {user_id}) => {
 			const result = await axios.get(`${URLChat}/${user_id}`)
 			.then(res => res.data);
@@ -36,8 +35,10 @@ const resolvers = {
 			return result;
 		},
 
-		getVehicle: async(_, {id}) => {
-			const result = await axios.get(`${URLVehicles}/${id}`)
+
+		//VEHICLE Q ----------------------------------------------------------------------
+		getVehicle: async(_, {owner}) => {
+			const result = await axios.get(`${URLVehicles}/${owner}`)
 			.then(res => res.data.data);
 			return result;
 		},
@@ -47,6 +48,9 @@ const resolvers = {
 			.then(res => res.data.data);
 			return result;
 		},
+
+
+		//REQUEST Q ----------------------------------------------------------------------
 		getRequestbyUser: async(_, {user_id}) => {
 			const result = await axios.get(`${URLRequest}/requestUser/?user=${user_id}`)
 			.then(res => res.data);
@@ -71,12 +75,14 @@ const resolvers = {
 			console.log(result);
 			return result;
 		},
+
 		getRequests: async(_) => {
 			const result = await axios.get(`${URLRequest}/request`)
 			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
+
 		getCoordinates: async(_) => {
 			const result = await axios.get(`${URLCoordinates}`)
 			.then(res => res.data);
@@ -84,11 +90,14 @@ const resolvers = {
 			return result;
 		},
 
+
+		//MULTIMEDIA Q ----------------------------------------------------------------------
 		getMultimedias: async(_) => {
 			const result = await axios.get(`${URLMultimedia}/multimedia`)
 			.then(res => res.data);
 			return result;
 		},
+
 		getMultimedia: async(_, {id}) => {
 			const result = await axios.get(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
@@ -96,17 +105,20 @@ const resolvers = {
 		}
 	},
 	Mutation: {
+		//USER M ----------------------------------------------------------------------
 		loginUser: async (_, {usermail, password}) => {
 			
 			const result = await axios.post(`${URLAuth}/oauth/token?username=${usermail}&password=${password}&grant_type=password`,"", config)
 			.then(res => res.data);
 			return result;
 		},
+
 		registerUser: async (_, user) => {
 			const result = await axios.post(`${URLAuth}/api/user/signup`, JSON.stringify(user.user), config)
 			.then(res => res.data);
 			return result;
 		},
+
 		updateUser: async (user) => {
 			const result = await axios.put(`${URLPerfil}/api/user/signup`, user, config)
 			.then(res => res.data);
@@ -115,7 +127,7 @@ const resolvers = {
 
 
 
-
+		//CHAT M ----------------------------------------------------------------------
 		createChat: async (_, {chat}) => {
 			console.log({chat})
 			const result = await axios.post(`${URLChat}`, chat)
@@ -132,10 +144,24 @@ const resolvers = {
 			return result;
 		},
 
+
+		//VEHICLE M ----------------------------------------------------------------------
 		createVehicle: async (_, {vehicle}) => {
-			const result = await axios.post(`${URLVehicles}`, vehicle) 
-			.then(res => res.data.data);
-			return result;
+			var usrChecker = await resolvers.Query.userById(vehicle.owner)
+
+			var imgChecker = true
+			if(vehicle.picture != "" && vehicle.picture != null){
+				imgChecker = await resolvers.Query.getMultimedia(vehicle.picture) 
+			}
+
+			if(usrChecker && imgChecker){
+				const result = await axios.post(`${URLVehicles}`, vehicle) 
+				.then(res => res.data.data);
+				return result;
+			}else{
+				return new Error('Username or Picture not valid')
+			}
+			
 		},
 		updateVehicle: async(_, {id, vehicle}) => {
 			const result = await axios.put(`${URLVehicles}/${id}`, vehicle)
@@ -149,28 +175,35 @@ const resolvers = {
 			console.log(result);
 			return result;
 		},
+
+
+		//REQUEST M ----------------------------------------------------------------------
 		createRequest: async (_, {request}) => {
 			const result = await axios.post(`${URLRequest}/request/`, request) 
 			.then(res => res.data);
 			return result;
 		},
+
 		updateRequest: async(_, {request_id, request}) => {
 			const result = await axios.put(`${URLRequest}/request/${request_id}`, request)
 			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
+
 		deleteRequest: async(_, {request_id}) => {
 			const result = await axios.delete(`${URLRequest}/request/${request_id}`)
 			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
+
 		createCoordinates: async (_, {coordinate}) => {
 			const result = await axios.post(`${URLCoordinates}/`, coordinate) 
 			.then(res => res.data);
 			return result;
 		},
+
 		updateCoordinates: async(_, {coordinates_id, coordinate}) => {
 			const result = await axios.put(`${URLCoordinates}/${coordinates_id}`, coordinate)
 			.then(res => res.data);
@@ -178,6 +211,7 @@ const resolvers = {
 			return result;
 		},
 
+		//MULTIMEDIA M ----------------------------------------------------------------------
 		deleteMultimedia: async(_, {id}) => {
 			const result = await axios.delete(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
