@@ -85,17 +85,15 @@ const resolvers = {
 		}
 	},
 	Mutation: {
-		loginUser: async (credentials) => {
-			// auth: {username: "vanta" , password: "dragonfly-software"}
-			const result = await axios.post(`${URLAuth}/oauth/token`, credentials, config)
+		loginUser: async (_, {usermail, password}) => {
+			
+			const result = await axios.post(`${URLAuth}/oauth/token?username=${usermail}&password=${password}&grant_type=password`,"", config)
 			.then(res => res.data);
 			return result;
 		},
 		registerUser: async (_, user) => {
-			//console.log(JSON.stringify(user.user));
 			const result = await axios.post(`${URLAuth}/api/user/signup`, JSON.stringify(user.user), config)
 			.then(res => res.data);
-			console.log(result);
 			return result;
 		},
 		updateUser: async (user) => {

@@ -28,6 +28,12 @@ const typeDefs = gql`
 		picture: String
 		rh: String
 	}
+	type JWT{
+		access_token: String!
+		token_type: String!
+		expires_in: Int!
+		scope: String!
+	}
 	input registerInput{
 		userName: String!
 		userDoc: String!
@@ -43,6 +49,8 @@ const typeDefs = gql`
 		usermail: String!
 		password: String!
 	}
+
+
 
 
 	#CHAT typeDefs------------------------------------------
@@ -174,7 +182,7 @@ const typeDefs = gql`
 	#MUTATIONS-------------------------------------------
 
 	type Mutation{
-		loginUser(credentials: loginInput!): String!
+		loginUser(usermail: String!, password: String!): JWT
     	registerUser(user: registerInput!): Auth!
     	updateUser(user: registerInput!): User! 	
 
