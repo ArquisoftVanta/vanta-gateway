@@ -1,0 +1,28 @@
+Francisco - Multimedia:
+ - Build: docker build -t multimedia_ms .
+ - Run: docker run -p 8700:80 multimedia_ms
+
+Oscar - Request:
+ - Build: docker build -t request_ms .
+ - Run: sudo docker run --network='host' -p 8300:8300 -e DB_HOST=127.0.0.1 -e DB_PORT=3306 -e DB_USER=searqui -e DB_PASSWORD=Arquisoft. -e DB_NAME=vanta_db -e URL=0.0.0.0:8300 request_ms
+
+Gonzalo - Auth:
+ - Maven: mvn package -DskipTests
+ - Build: docker build -t authentication_ms .
+ - Run: docker run --network='host' -p 8080:8443 authentication_ms
+
+Cesar - Profile:
+ - Build: docker-compose build
+ - Run: docker-compose up
+
+Mauro - Chat:
+ - Build:
+ - Run: 
+
+Cristian - Service:
+ - Build: 
+ - Run:
+
+Reina - Vehicle:
+ - Build: docker-compose build
+ - Run: docker-compose up

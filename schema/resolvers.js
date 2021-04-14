@@ -88,13 +88,11 @@ const resolvers = {
 		getMultimedias: async(_) => {
 			const result = await axios.get(`${URLMultimedia}/multimedia`)
 			.then(res => res.data);
-			console.log(result);
 			return result;
 		},
-		getMultimedia: async(_, id) => {
+		getMultimedia: async(_, {id}) => {
 			const result = await axios.get(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
-			console.log(result);
 			return result;
 		}
 	},
@@ -182,9 +180,8 @@ const resolvers = {
 		},
 
 		deleteMultimedia: async(_, {id}) => {
-			const result = await axios.put(`${URLMultimedia}/${id}`)
+			const result = await axios.delete(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
-			console.log(result);
 			return result;
 		}
 		

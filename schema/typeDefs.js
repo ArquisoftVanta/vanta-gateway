@@ -157,7 +157,7 @@ const typeDefs = gql`
 		type: Int!
 	}
 
-	#MULTIMEDIA_REQUEST typeDefs-------------------------
+	#MULTIMEDIAS_REQUEST typeDefs-------------------------
 
 	type Multimedias{
 		id: Int!
@@ -170,7 +170,7 @@ const typeDefs = gql`
 	input multimediasInput{
 		name: String!
 		extension: String!
-		size: Double!
+		size: Float!
 		location: String!
 	}
 
@@ -195,7 +195,7 @@ const typeDefs = gql`
 		getCoordinates: [Coordinates]!
 
 		getMultimedias: [Multimedias]!
-		getMultimediaById(id: Int!): Multimedias!
+		getMultimedia(id: Int!): Multimedias!
 
 	}
 
@@ -219,9 +219,7 @@ const typeDefs = gql`
 		createCoordinates(coordinate: coordinatesInput!): Coordinates!
 		updateCoordinates(coordinates_id: Int!, coordinate: coordinatesInput!): Coordinates!
 
-		createMultimedia(file: Upload!): File!
-		updateMultimedia(file: Upload!): File!
-		deleteMultimedia(id: Int!): Multimedia
+		deleteMultimedia(id: Int!): Multimedias
 		
 	}
 
