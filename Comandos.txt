@@ -21,7 +21,7 @@ Cesar - Profile:
 
 Mauro - Chat:
  - Build: docker build -t chat_ms .
- - Run: sudo docker run --network='host -p 8600:86000 chat_ms
+ - Run: sudo docker run --network='host' -p 8600:8600 chat_ms
 
 Cristian - Service:
  - Build: docker built -t service_ms .
