@@ -1,10 +1,11 @@
 const {ApolloServer} = require('apollo-server-express')
 const {typeDefs} = require('./schema/typeDefs')
 const {resolvers} = require('./schema/resolvers')
+const { gateway} = require('./servers');
 
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || gateway;
 
 const server = new ApolloServer({typeDefs, resolvers});
 server.applyMiddleware({app});
