@@ -250,9 +250,9 @@ const resolvers = {
 			}else{
 				return new Error('Username not valid')
 			}	
-		}
+		},
 
-		newRequest: async(_, {req, coor1. coor2}) =>{
+		newRequest: async(_, {req, coor1, coor2}) =>{
 			const request = await axios.post(`${URLRequest}/request/`, req) 
 			.then(res => res.data);
 			
