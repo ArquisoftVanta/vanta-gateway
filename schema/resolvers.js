@@ -1,7 +1,7 @@
 const { url, auth, perfil, chat, vehicles, request, multimedia } = require('./servers');
 const axios = require('axios');
 const { getVariableValues } = require('graphql/execution/values');
-const URLVehicles = `http://${url}:${vehicles}/vehicles`;
+
 
 const URLAuth = `http://${url}:${auth}`;
 let config = {headers: {'Content-Type': 'application/json'}, auth: { username: 'vanta', password: 'dragonfly-software'}}																	
@@ -11,6 +11,7 @@ const URLChat = `http://${url}:${chat}/conv`;
 const URLRequest = `http://${url}:${request}`;
 const URLCoordinates = `http://${url}:${request}/coordinates`;
 const URLMultimedia = `http://${url}:${multimedia}`;
+const URLVehicles = `http://${url}:${vehicles}/vehicles`;
 
 const resolvers = {
 	Query: {
@@ -137,20 +138,6 @@ const resolvers = {
 		//VEHICLE M ----------------------------------------------------------------------
 		createVehicle: async (_, {vehicle}) => {
 
-/*			console.log(vehicle);
-			var usrChecker = await resolvers.Query.userById({user_id: vehicle.owner})
-
-			/*var imgChecker = true
-			if(vehicle.picture != "" && vehicle.picture != null){
-				imgChecker = await resolvers.Query.getMultimedia(vehicle.picture) 
-			}
-
-			if(usrChecker ){
-
-			}else{
-				return new Error('Username or Picture not valid')
-			}*/
-
 			const result = await axios.post(`${URLVehicles}`, vehicle) 
 			.then(res => res.data.data);
 			return result;
@@ -233,6 +220,22 @@ const resolvers = {
 			}else{
 				return new Error('Username not valid')
 			}	
+		}
+
+		newRequest: async(_, {req, coor1. coor2}) =>{
+			const request = await axios.post(`${URLRequest}/request/`, req) 
+			.then(res => res.data);
+			
+			coor1.request = request.request_id;
+			coor2.request = request.request_id;
+
+			const c1 = await axios.post(`${URLCoordinates}/`, coor1) 
+			.then(res => res.data);
+
+			const c2 = await axios.post(`${URLCoordinates}/`, coor2) 
+			.then(res => res.data);
+
+			return request;
 		}
 		
 	}

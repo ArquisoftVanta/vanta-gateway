@@ -150,7 +150,7 @@ const typeDefs = gql`
 		type: Int!
 	}
 	input coordinatesInput{
-		request: Int!
+		request: Int
 		lat: String!
 		lng: String!
 		address: String!
@@ -213,8 +213,6 @@ const typeDefs = gql`
 		updateVehicle(id: Int!, vehicle: vehicleInput!): Vehicle!
 		deleteVehicle(id: Int!): Vehicle
 
-		newVehicle(vehicle: vehicleInput!): Vehicle!
-
 		createRequest(request: requestInput!): Request!
 		updateRequest(request_id: Int!, request: requestInput!): Request!
 		deleteRequest(request_id: Int!): Request
@@ -222,6 +220,10 @@ const typeDefs = gql`
 		updateCoordinates(coordinates_id: Int!, coordinate: coordinatesInput!): Coordinates!
 
 		deleteMultimedia(id: Int!): Multimedias
+
+
+		newVehicle(vehicle: vehicleInput!): Vehicle!
+		newRequest(req: requestInput!, coor1: coordinatesInput!, coor2: coordinatesInput!): Request!
 		
 	}
 
