@@ -1,4 +1,4 @@
-const { url, auth, perfil, chat, vehicles, request, multimedia } = require('./servers');
+const { url, auth, perfil, chat, vehicles, request, viajes, multimedia } = require('./servers');
 const axios = require('axios');
 const { getVariableValues } = require('graphql/execution/values');
 const URLVehicles = `http://${url}:${vehicles}/vehicles`;
@@ -9,6 +9,7 @@ let config = {headers: {'Content-Type': 'application/json'}, auth: { username: '
 const URLPerfil = `http://${url}:${perfil}`;
 const URLChat = `http://${url}:${chat}/conv`;
 const URLRequest = `http://${url}:${request}`;
+const URLService = `http://${url}:${viajes}`;
 const URLCoordinates = `http://${url}:${request}/coordinates`;
 const URLMultimedia = `http://${url}:${multimedia}`;
 
@@ -36,8 +37,8 @@ const resolvers = {
 
 
 		//VEHICLE Q ----------------------------------------------------------------------
-		getVehicle: async(_, {owner}) => {
-			const result = await axios.get(`${URLVehicles}/${owner}`)
+		getVehicle: async(_, {id}) => {
+			const result = await axios.get(`${URLVehicles}/${id}`)
 			.then(res => res.data.data);
 			return result;
 		},
@@ -73,9 +74,20 @@ const resolvers = {
 		getRequests: async(_) => {
 			const result = await axios.get(`${URLRequest}/request`)
 			.then(res => res.data);
+			return result;
+		},
+		getService: async(_, {service_id}) => {
+			const result = await axios.get(`${URLService}/service/${service_id}`)
+			.then(res => res.data);
 			console.log(result);
 			return result;
 		},
+		getServices: async(_) => {
+			const result = await axios.get(`${URLService}/service`)
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		}, 
 		getCoordinates: async(_) => {
 			const result = await axios.get(`${URLCoordinates}`)
 			.then(res => res.data);
@@ -180,7 +192,6 @@ const resolvers = {
 		updateRequest: async(_, {request_id, request}) => {
 			const result = await axios.put(`${URLRequest}/request/${request_id}`, request)
 			.then(res => res.data);
-			console.log(result);
 			return result;
 		},
 
@@ -203,6 +214,25 @@ const resolvers = {
 			console.log(result);
 			return result;
 		},
+
+		createService: async (_, {service}) => {
+			console.log(JSON.stringify(service));
+			const result = await axios.post(`${URLService}/service`, JSON.stringify(service)) 
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		},
+		updateService: async (_, {service}) => {
+			const result = await axios.put(`${URLService}/service`, JSON.stringify(service)) 
+			.then(res => res.data);
+			return result;
+		},
+		deleteService: async (_, {id}) => {
+			const result = await axios.delete(`${URLService}/service/${id}`) 
+			.then(res => res.data);
+			return result;
+		},
+
 
 		//MULTIMEDIA M ----------------------------------------------------------------------
 		deleteMultimedia: async(_, {id}) => {

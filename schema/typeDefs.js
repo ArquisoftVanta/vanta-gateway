@@ -174,6 +174,37 @@ const typeDefs = gql`
 		location: String!
 	}
 
+	#SERVICES typeDefs-------------------------
+
+	type Service{
+		service_id: Int!
+		user_id: Int!
+		date_: String!
+		state_service: Boolean!
+		vehicle_id: Int!
+		valor: Float!
+		cupos: Int!
+	}
+
+	input serviceInput{
+		userid: Int!
+		date_: String!
+		state_service: Boolean!
+		vehicle_id: Int!
+		valor: Float!
+		cupos: Int!
+	}
+
+	input serviceInputFull{
+		service_id: Int!
+		userid: Int!
+		date_: String!
+		state_service: Boolean!
+		vehicle_id: Int!
+		valor: Float!
+		cupos: Int!
+	}
+
 
 	#QUERIES----------------------------------------------
 
@@ -183,7 +214,7 @@ const typeDefs = gql`
 		chatByUser(user_id: String!): [Chat]
 		chatById(user_id: String!, chat_id: String!): Chat
 
-		getVehicle(id: Int!): [Vehicle]!
+		getVehicle(id: String!): [Vehicle]!
 		getVehicles: [Vehicle]!
 
 		getRequestbyUser(user_id: String!): [Request]!
@@ -191,6 +222,9 @@ const typeDefs = gql`
 		getRequestbyService(service_id: Int!): [Request]!
 		getRequest(request_id: Int): Request!
 		getRequests: [Request]!
+
+		getService(service_id: Int!): Service!
+		getServices: [Service]! 
 		
 		getCoordinates: [Coordinates]!
 
@@ -218,6 +252,11 @@ const typeDefs = gql`
 		createRequest(request: requestInput!): Request!
 		updateRequest(request_id: Int!, request: requestInput!): Request!
 		deleteRequest(request_id: Int!): Request
+
+		createService(service: serviceInput!): Service!
+		updateService(service: serviceInputFull!): Service!
+		deleteService(id: Int!): Service
+
 		createCoordinates(coordinate: coordinatesInput!): Coordinates!
 		updateCoordinates(coordinates_id: Int!, coordinate: coordinatesInput!): Coordinates!
 
