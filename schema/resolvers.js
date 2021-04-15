@@ -1,4 +1,4 @@
-const { url, auth, perfil, chat, vehicles, request, viajes, multimedia } = require('./servers');
+const { url, auth, perfil, chat, vehicles, request, viajes, multimedia, notificaciones } = require('./servers');
 const axios = require('axios');
 const { getVariableValues } = require('graphql/execution/values');
 
@@ -13,6 +13,7 @@ const URLService = `http://${url}:${viajes}`;
 const URLCoordinates = `http://${url}:${request}/coordinates`;
 const URLMultimedia = `http://${url}:${multimedia}`;
 const URLVehicles = `http://${url}:${vehicles}/vehicles`;
+const URLNotification = `http://${url}:${notificaciones}/notifications`;
 
 const resolvers = {
 	Query: {
@@ -105,6 +106,12 @@ const resolvers = {
 		},
 		getMultimedia: async(_, {id}) => {
 			const result = await axios.get(`${URLMultimedia}/multimedia/${id}`)
+			.then(res => res.data);
+			return result;
+		},
+
+		getNotifications: async(_, {user_email}) => {
+			const result = await axios.get(`${URLNotification}/all/${user_email}`)
 			.then(res => res.data);
 			return result;
 		}
@@ -225,6 +232,27 @@ const resolvers = {
 		deleteMultimedia: async(_, {id}) => {
 			const result = await axios.delete(`${URLMultimedia}/multimedia/${id}`)
 			.then(res => res.data);
+			return result;
+		},
+
+		createNotification: async (_, {notification}) => {
+			const result = await axios.post(`${URLNotification}/create`, notification) 
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		},
+
+		updateNotification: async (_, {notification_id}) => {
+			const result = await axios.put(`${URLNotification}/set-viewed/${notification_id}`) 
+			.then(res => res.data);
+			console.log(result);
+			return result;
+		},
+
+		deleteNotification: async (_, {notification_id}) => {
+			const result = await axios.delete(`${URLNotification}/delete/${notification_id}`) 
+			.then(res => res.data);
+			console.log(result);
 			return result;
 		},
 

@@ -205,6 +205,29 @@ const typeDefs = gql`
 		cupos: Int!
 	}
 
+	#NOTIFICATIONS typeDefs-------------------------
+
+	type Created_At{
+		_seconds: Int!
+		_nanoseconds: Int!
+	}
+
+	type Notification{
+		direction: String!
+		message: String!
+		user_email: String!
+		created_at: String!
+		notification_id: Created_At!
+		viewed: Boolean!
+	}
+
+	input notificationInput{
+		direction: String!
+		message: String!
+		user_email: String!
+		viewed: Boolean!
+	}
+
 
 	#QUERIES----------------------------------------------
 
@@ -230,6 +253,8 @@ const typeDefs = gql`
 
 		getMultimedias: [Multimedias]!
 		getMultimedia(id: Int!): Multimedias!
+
+		getNotifications(user_email: String!): [Notification]!
 
 	}
 
@@ -260,6 +285,9 @@ const typeDefs = gql`
 
 		deleteMultimedia(id: Int!): Multimedias
 
+		createNotification(notification: notificationInput!): Notification!
+		updateNotification(notification_id: String!): Notification
+		deleteNotification(notification_id: String!): Notification
 
 		newVehicle(vehicle: vehicleInput!): Vehicle!
 		newRequest(req: requestInput!, coor1: coordinatesInput!, coor2: coordinatesInput!): Request!

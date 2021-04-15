@@ -11,6 +11,10 @@ Gonzalo - Auth:
  - Build: docker build -t authentication_ms .
  - Run: docker run --network='host' -p 8080:8443 authentication_ms
 
+Gonzalo - Notifications:
+ - Build: docker build -t notifications_ms .
+ - Run: docker run -p 3000:3000 notifications_ms
+
 Cesar - Profile:
  - Build: docker-compose build
  - Run: docker-compose up

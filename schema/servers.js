@@ -8,6 +8,6 @@ const viajes = '8400'
 const vehicles = '3001'
 const chat = '8600'
 const multimedia = '8700'
-const notificaciones = '8800'
+const notificaciones = '3000'
 
-module.exports = {url, auth, perfil, request, viajes, vehicles, chat, multimedia, notificaciones}
+module.exports = {url, auth, perfil, request, viajes, vehicles, chat, multimedia, notificaciones, gateway}
