@@ -45,6 +45,15 @@ const typeDefs = gql`
 		rh: String
 		userAddress: String
 	}
+	input infoInput{
+		rh: String!
+		picture: String!
+		user_address: String!
+		user_doc: String!
+		user_mail: String!
+		user_name: String!
+		user_phone: String!
+	}
 	input loginInput{
 		usermail: String!
 		password: String!
@@ -186,6 +195,23 @@ const typeDefs = gql`
 		cupos: Int!
 	}
 
+	type CoordinatesServ{
+        coordinates_id:Int!
+        service_id: Int!
+        lat: String!
+        lng: String!
+        address: String!
+        type: Int!
+    }
+
+	input coordinatesServInput{
+        service_id: Int
+        lat: String!
+        lng: String!
+        address: String!
+        type: Int!
+    }
+
 	input serviceInput{
 		userid: Int!
 		date_: String!
@@ -237,7 +263,7 @@ const typeDefs = gql`
 		chatByUser(user_id: String!): [Chat]
 		chatById(user_id: String!, chat_id: String!): Chat
 
-		getVehicle(id: String!): [Vehicle]!
+		getVehicle(id: Int!): [Vehicle]!
 		getVehicles: [Vehicle]!
 
 		getRequestbyUser(user_id: String!): [Request]!
@@ -263,7 +289,7 @@ const typeDefs = gql`
 	type Mutation{
 		loginUser(usermail: String!, password: String!): JWT
     	registerUser(user: registerInput!): Auth!
-    	updateUser(user: registerInput!): User! 	
+    	updateUser(user_mail: String!, user: infoInput!): User! 	
 
     	createChat(chat: chatInput!): Chat!
 		sendMessage(msg: messageInput!): Message!	
@@ -279,6 +305,8 @@ const typeDefs = gql`
 		createService(service: serviceInput!): Service!
 		updateService(service: serviceInputFull!): Service!
 		deleteService(id: Int!): Service
+
+		createServCoordinates(coordinate: coordinatesServInput!): CoordinatesServ!
 
 		createCoordinates(coordinate: coordinatesInput!): Coordinates!
 		updateCoordinates(coordinates_id: Int!, coordinate: coordinatesInput!): Coordinates!

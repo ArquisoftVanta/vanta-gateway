@@ -10,6 +10,7 @@ const URLPerfil = `http://${url}:${perfil}`;
 const URLChat = `http://${url}:${chat}/conv`;
 const URLRequest = `http://${url}:${request}`;
 const URLService = `http://${url}:${viajes}`;
+const URLServCoordinates  = `http://${url}:${viajes}/service_coordinates`;
 const URLCoordinates = `http://${url}:${request}/coordinates`;
 const URLMultimedia = `http://${url}:${multimedia}`;
 const URLVehicles = `http://${url}:${vehicles}/vehicles`;
@@ -32,7 +33,8 @@ const resolvers = {
 			return result;
 		},
 		chatById: async(_, {user_id, chat_id}) => {
-			const result = await axios.get(`${URLChat}/${user_id}/${chat_id}`)
+			console.log(chat_id);
+			const result = await axios.get(`${URLChat}/${user_id}/${chat_id}/`)
 			.then(res => res.data);
 			return result;
 		},
@@ -129,9 +131,11 @@ const resolvers = {
 			.then(res => res.data);
 			return result;
 		},
-		updateUser: async (user) => {
-			const result = await axios.put(`${URLPerfil}/api/user/signup`, user, config)
+		updateUser: async (_, user) => {
+			console.log(user);
+			const result = await axios.put(`${URLPerfil}/user/`, user, config)
 			.then(res => res.data);
+			console.log(result);
 			return result;
 		},
 
@@ -226,6 +230,12 @@ const resolvers = {
 			.then(res => res.data);
 			return result;
 		},
+
+		createServCoordinates: async (_, {coordinate}) => {
+            const result = await axios.post(`${URLServCoordinates}`, coordinate) 
+            .then(res => res.data);
+            return result;
+        },
 
 
 		//MULTIMEDIA M ----------------------------------------------------------------------
