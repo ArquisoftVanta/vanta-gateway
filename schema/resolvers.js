@@ -296,10 +296,10 @@ const resolvers = {
 			
 			coor1.request = request.request_id;
 			coor2.request = request.request_id;
-
+			console.log(req)
+			console.log(coor1)
 			const c1 = await axios.post(`${URLCoordinates}/`, coor1) 
 			.then(res => res.data);
-
 			const c2 = await axios.post(`${URLCoordinates}/`, coor2) 
 			.then(res => res.data);
 

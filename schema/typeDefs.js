@@ -152,18 +152,20 @@ const typeDefs = gql`
 	
 	type Coordinates{
 		coordinates_id:Int!
-		request: Int!
+		request: Int
 		lat: String!
 		lng: String!
 		address: String!
-		type: Int!
+		type: String!
+		order: Int
 	}
 	input coordinatesInput{
 		request: Int
 		lat: String!
 		lng: String!
 		address: String!
-		type: Int!
+		type: String!
+		order: Int
 	}
 
 	#MULTIMEDIAS_REQUEST typeDefs-------------------------
@@ -201,7 +203,7 @@ const typeDefs = gql`
         lat: String!
         lng: String!
         address: String!
-        type: Int!
+        type: String!
     }
 
 	input coordinatesServInput{
@@ -209,7 +211,7 @@ const typeDefs = gql`
         lat: String!
         lng: String!
         address: String!
-        type: Int!
+        type: String!
     }
 
 	input serviceInput{
