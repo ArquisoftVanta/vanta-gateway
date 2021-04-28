@@ -97,7 +97,7 @@ const typeDefs = gql`
 		id:	Int!
 		owner:	String!
 		license_plate:	String!
-		vehicle_type:	Int!
+		vehicle_type:	String!
 		model:	String!
 		year:	Int!
 		color:	String!
@@ -114,7 +114,7 @@ const typeDefs = gql`
 	input vehicleInput{
 		owner:	String!
 		license_plate:	String!
-		vehicle_type:	Int!
+		vehicle_type:	String!
 		model:	String!
 		year:	Int!
 		color:	String!
@@ -265,7 +265,7 @@ const typeDefs = gql`
 		chatByUser(user_id: String!): [Chat]
 		chatById(user_id: String!, chat_id: String!): Chat
 
-		getVehicle(id: Int!): [Vehicle]!
+		getVehicle(owner: String!): [Vehicle]!
 		getVehicles: [Vehicle]!
 
 		getRequestbyUser(user_id: String!): [Request]!
