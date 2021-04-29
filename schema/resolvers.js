@@ -121,7 +121,7 @@ const resolvers = {
 	Mutation: {
 		//USER M ----------------------------------------------------------------------
 		loginUser: async (_, {usermail, password}) => {
-			
+			console.log("llego gonorreas");
 			const result = await axios.post(`${URLAuth}/oauth/token?username=${usermail}&password=${password}&grant_type=password`,"", config)
 			.then(res => res.data);
 			return result;
