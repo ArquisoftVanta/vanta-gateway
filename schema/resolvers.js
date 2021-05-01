@@ -7,7 +7,7 @@ const URLAuth = `http://${url}:${auth}`;
 let config = {headers: {'Content-Type': 'application/json'}, auth: { username: 'vanta', password: 'dragonfly-software'}}																	
 
 const URLPerfil = `http://${url}:${perfil}`;
-const URLChat = `http://${url}:${chat}/conv`;
+const URLChat = `http://${url}:${chat}/conv`;	
 const URLRequest = `http://${url}:${request}`;
 const URLService = `http://${url}:${viajes}`;
 const URLServCoordinates  = `http://${url}:${viajes}/service_coordinates`;
@@ -25,6 +25,12 @@ const resolvers = {
 			return result;
 		},
 
+		userByToken: async (_, {token}) => {
+			const result = await axios.get(`${URLAuth}/api/user/verify-user?access_token=${token}`,"", config)
+			.then(res => res.data);
+			return result;
+		},
+		
 
 		//CHAT Q ----------------------------------------------------------------------
 		chatByUser: async (_, {user_id}) => {
@@ -41,8 +47,8 @@ const resolvers = {
 
 
 		//VEHICLE Q ----------------------------------------------------------------------
-		getVehicle: async(_, {owner}) => {
-			const result = await axios.get(`${URLVehicles}/${owner}`)
+		getVehicle: async(_, {id}) => {
+			const result = await axios.get(`${URLVehicles}/${id}`)
 			.then(res => res.data.data);
 			return result;
 		},
@@ -119,11 +125,13 @@ const resolvers = {
 		}
 	},
 	Mutation: {
+
+		
 		//USER M ----------------------------------------------------------------------
 		loginUser: async (_, {usermail, password}) => {
-			console.log("llego gonorreas");
 			const result = await axios.post(`${URLAuth}/oauth/token?username=${usermail}&password=${password}&grant_type=password`,"", config)
 			.then(res => res.data);
+			console.log(result)
 			return result;
 		},
 		registerUser: async (_, user) => {

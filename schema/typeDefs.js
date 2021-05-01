@@ -59,6 +59,10 @@ const typeDefs = gql`
 		password: String!
 	}
 
+	type userAuth{
+		userMail: String!
+		authenticated: Boolean!
+	}
 
 
 
@@ -260,12 +264,15 @@ const typeDefs = gql`
 	#QUERIES----------------------------------------------
 
 	type Query{
+
+		userByToken(token: String!): userAuth!
+
 		userById(user_id: String!): User!		
 
 		chatByUser(user_id: String!): [Chat]
 		chatById(user_id: String!, chat_id: String!): Chat
 
-		getVehicle(owner: String!): [Vehicle]!
+		getVehicle(id: Int!): [Vehicle]!
 		getVehicles: [Vehicle]!
 
 		getRequestbyUser(user_id: String!): [Request]!
@@ -289,6 +296,8 @@ const typeDefs = gql`
 	#MUTATIONS-------------------------------------------
 
 	type Mutation{
+		
+
 		loginUser(usermail: String!, password: String!): JWT
     	registerUser(user: registerInput!): Auth!
     	updateUser(user_mail: String!, user: infoInput!): User! 	
