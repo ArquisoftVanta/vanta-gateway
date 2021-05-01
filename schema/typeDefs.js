@@ -14,7 +14,7 @@ const typeDefs = gql`
 		user_mail: String!
 		user_name: String!
 		user_phone: String!
-		register_date: String!
+		registry_datetime: String!
 	}
 	type Auth{
 		idUser: Int!
