@@ -189,12 +189,12 @@ const typeDefs = gql`
 
 	type Service{
 		service_id: Int!
-		user_id: Int!
+		user_id: String!
 		date_: String!
 		state_service: Boolean!
 		vehicle_id: Int!
-		valor: Float!
-		cupos: Int!
+		service_value: Float!
+		places: Int!
 	}
 
 	type CoordinatesServ{
@@ -215,22 +215,22 @@ const typeDefs = gql`
     }
 
 	input serviceInput{
-		userid: Int!
+		user_id: String!
 		date_: String!
 		state_service: Boolean!
 		vehicle_id: Int!
-		valor: Float!
-		cupos: Int!
+		service_value: Float!
+		places: Int!
 	}
 
 	input serviceInputFull{
 		service_id: Int!
-		userid: Int!
+		user_id: String!
 		date_: String!
 		state_service: Boolean!
 		vehicle_id: Int!
-		valor: Float!
-		cupos: Int!
+		service_value: Float!
+		places: Int!
 	}
 
 	#NOTIFICATIONS typeDefs-------------------------
@@ -306,7 +306,7 @@ const typeDefs = gql`
 
 		createService(service: serviceInput!): Service!
 		updateService(service: serviceInputFull!): Service!
-		deleteService(id: Int!): Service
+		deleteService(id: Int!): Service	
 
 		createServCoordinates(coordinate: coordinatesServInput!): CoordinatesServ!
 
