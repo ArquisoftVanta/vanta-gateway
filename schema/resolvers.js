@@ -41,8 +41,8 @@ const resolvers = {
 
 
 		//VEHICLE Q ----------------------------------------------------------------------
-		getVehicle: async(_, {owner}) => {
-			const result = await axios.get(`${URLVehicles}/${owner}`)
+		getVehicle: async(_, {id}) => {
+			const result = await axios.get(`${URLVehicles}/${id}`)
 			.then(res => res.data.data);
 			return result;
 		},
