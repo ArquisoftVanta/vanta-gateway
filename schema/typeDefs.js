@@ -1,6 +1,6 @@
-const {gql} = require('apollo-server-express')
+const { gql } = require('apollo-server-express')
 
-const typeDefs = gql`
+const typeDefs = gql `
 
 	#USER AND AUTH typeDefs-----------------------------------
 
@@ -285,6 +285,7 @@ const typeDefs = gql`
 		getServices: [Service]! 
 		
 		getCoordinates: [Coordinates]!
+		getCoordinatesbyRequest(request: Int!): [Coordinates]!
 
 		getMultimedias: [Multimedias]!
 		getMultimedia(id: Int!): Multimedias!
@@ -335,4 +336,4 @@ const typeDefs = gql`
 
 	`;
 
-module.exports = {typeDefs};
+module.exports = { typeDefs };
