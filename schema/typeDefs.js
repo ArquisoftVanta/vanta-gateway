@@ -272,7 +272,7 @@ const typeDefs = gql`
 		chatByUser(user_id: String!): [Chat]
 		chatById(user_id: String!, chat_id: String!): Chat
 
-		getVehicle(id: Int!): [Vehicle]!
+		getVehicle(id: Int!): Vehicle!
 		getVehicles: [Vehicle]!
 
 		getRequestbyUser(user_id: String!): [Request]!
