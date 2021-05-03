@@ -30,3 +30,4 @@ Cristian - Service:
 Reina - Vehicle:
  - Build: docker-compose build
  - Run: docker-compose up
+ - Migrate: docker-compose run --rm web rake db:migrate

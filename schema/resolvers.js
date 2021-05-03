@@ -182,13 +182,11 @@ const resolvers = {
         updateVehicle: async(_, { id, vehicle }) => {
             const result = await axios.put(`${URLVehicles}/${id}`, vehicle)
                 .then(res => res.data.data);
-            console.log(result);
             return result;
         },
         deleteVehicle: async(_, { id }) => {
             const result = await axios.delete(`${URLVehicles}/${id}`)
                 .then(res => res.data.data);
-            console.log(result);
             return result;
         },
 
