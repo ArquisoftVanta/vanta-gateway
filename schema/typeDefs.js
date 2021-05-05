@@ -331,6 +331,7 @@ const typeDefs = gql `
 
 		newVehicle(vehicle: vehicleInput!): Vehicle!
 		newRequest(req: requestInput!, coor1: coordinatesInput!, coor2: coordinatesInput!): Request!
+		newService(ser: serviceInput!, coor1: coordinatesServInput!, coor2: coordinatesServInput!, reqs: [requestInput]!): Service!
 		
 	}
 
