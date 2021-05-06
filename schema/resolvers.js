@@ -123,9 +123,14 @@ const resolvers = {
             return result;
         },
 
-        getNotifications: async(_, { user_email }) => {
-            const result = await axios.get(`${URLNotification}/all/${user_email}`)
-                .then(res => res.data);
+        //NOTIFICATIONS Q -------------------------------------------------------------------
+        getNotifications: async(_, { token }) => {
+    /*         const result = await axios.get(`${URLAuth}/api/user/verify-user?access_token=${token}`, "", config)
+            .then(res => res.data); */
+            const user = await axios.get(`${URLAuth}/api/user/verify-user?access_token=${token}`, "", config);
+
+            const result = await axios.get(`${URLNotification}/all/${user.data.userMail}`).then(res => res.data);
+            
             return result;
         }
     },
@@ -256,7 +261,10 @@ const resolvers = {
             return result;
         },
 
+        //NOTIFICATION M --------------------------------------------------------------------
         createNotification: async(_, { notification }) => {
+            const user = await axios.get(`${URLAuth}/api/user/verify-user?access_token=${notification.token}`, "", config);
+            notification.user_email = user.data.userMail;
             const result = await axios.post(`${URLNotification}/create`, notification)
                 .then(res => res.data);
             console.log(result);
