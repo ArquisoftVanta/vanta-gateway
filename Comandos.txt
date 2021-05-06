@@ -1,19 +1,19 @@
 Francisco - Multimedia:
  - Build: docker build -t multimedia_ms .
- - Run: docker run -p 8700:80 multimedia_ms
+ - Run: docker run --name vanta_multimedia_ms -p 8700:80 multimedia_ms
 
 Oscar - Request:
  - Build: docker build -t request_ms .
- - Run: sudo docker run --network='host' -p 8300:8300 -e DB_HOST=127.0.0.1 -e DB_PORT=3306 -e DB_USER=searqui -e DB_PASSWORD=arquisoft. -e DB_NAME=vanta_db -e URL=0.0.0.0:8300 request_ms
+ - Run: sudo docker run --name vanta_request_ms --network='host' -p 8300:8300 -e DB_HOST=127.0.0.1 -e DB_PORT=3306 -e DB_USER=searqui -e DB_PASSWORD=arquisoft -e DB_NAME=vanta_db -e URL=0.0.0.0:8300 request_ms
 
 Gonzalo - Auth:
  - Maven: mvn package -DskipTests
  - Build: docker build -t authentication_ms .
- - Run: docker run --network='host' -p 8080:8443 authentication_ms
+ - Run: docker run --name vanta_auth_ms --network='host' -p 8080:8443 authentication_ms
 
 Gonzalo - Notifications:
  - Build: docker build -t notifications_ms .
- - Run: docker run -p 3000:3000 notifications_ms
+ - Run: docker run --name vanta_notifications_ms -p 3000:3000 notifications_ms
 
 Cesar - Profile:
  - Build: docker-compose build
@@ -21,13 +21,21 @@ Cesar - Profile:
 
 Mauro - Chat:
  - Build: docker build -t chat_ms .
- - Run: sudo docker run --network='host' -p 8600:8600 chat_ms
+ - Run: sudo docker run --name vanta_chat_ms --network='host' -p 8600:8600 chat_ms
 
 Cristian - Service:
- - Build: docker built -t service_ms .
- - Run: docker run -p 8400:8400 service_ms
+ - Build: docker build -t service_ms .
+ - Run: docker run --name vanta_service_ms -p 8400:8400 service_ms
 
 Reina - Vehicle:
  - Build: docker-compose build
  - Run: docker-compose up
  - Migrate: docker-compose run --rm web rake db:migrate
+
+ Mauro - Gateway:
+ - Build: docker build -t vanta_api .
+ - Run: sudo docker run --name vanta_api --network='host' -p 8000:8000 vanta_api
+
+ Front end:
+ - Build: docker build -t vanta_wa .
+ - Run: docker run --name vanta_wa --network='host' -p 3500:3500 vanta_wa

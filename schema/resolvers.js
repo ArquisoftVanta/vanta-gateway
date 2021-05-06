@@ -321,6 +321,30 @@ const resolvers = {
                 .then(res => res.data);
 
             return request;
+        },
+
+        newService: async(_, {ser, coor1, coor2, reqs}) => {
+            const service = await axios.post(`${URLService}/service`, JSON.stringify(service))
+                .then(res => res.data);
+
+
+            coor1.service_id = service.service_id;
+            coor2.service_id = service.service_id;
+
+
+            const c1 = await axios.post(`${URLServCoordinates}`, coor1)
+                .then(res => res.data);
+            const c2 = await axios.post(`${URLServCoordinates}`, coor2)
+                .then(res => res.data);
+
+
+            for(var reqInput of reqs){
+                const reqResult = await axios.put(`${URLRequest}/request/${reqInput.request_id}`, reqInput)
+                    .then(res => res.data);
+            }
+
+
+            return service;
         }
 
     }
