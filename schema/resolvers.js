@@ -98,6 +98,19 @@ const resolvers = {
             console.log(result);
             return result;
         },
+        getServiceCoordinates: async(_) => {
+            const result = await axios.get(`${URLServCoordinates}`)
+                .then(res => res.data);
+            console.log(result);
+            return result;
+        },
+        getCoordinatesByService: async(_, { service_id }) => {
+            const result = await axios.get(`${URLServCoordinates}/${service_id}`)
+                .then(res => res.data);
+            console.log(result);
+            return result;
+        },
+        
         getCoordinates: async(_) => {
             const result = await axios.get(`${URLCoordinates}`)
                 .then(res => res.data);
@@ -248,7 +261,12 @@ const resolvers = {
         },
 
         createServCoordinates: async(_, { coordinate }) => {
-            const result = await axios.post(`${URLServCoordinates}`, coordinate)
+            const result = await axios.post(`${URLServCoordinates}`, JSON.stringify(coordinate))
+                .then(res => res.data);
+            return result;
+        },
+        deleteServCoordinates: async(_, { id }) => {
+            const result = await axios.delete(`${URLServCoordinates}/${id}`)
                 .then(res => res.data);
             return result;
         },

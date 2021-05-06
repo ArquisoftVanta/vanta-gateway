@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require("apollo-server-express")
 
 const typeDefs = gql`
   #USER AND AUTH typeDefs-----------------------------------
@@ -202,16 +202,16 @@ const typeDefs = gql`
     service_id: Int!
     lat: String!
     lng: String!
-    address: String!
-    type: String!
+    address_name: String!
+    type: Int!
   }
 
   input coordinatesServInput {
     service_id: Int
     lat: String!
     lng: String!
-    address: String!
-    type: String!
+    address_name: String!
+    type: Int!
   }
 
   input serviceInput {
@@ -278,6 +278,9 @@ const typeDefs = gql`
     getService(service_id: Int!): Service!
     getServices: [Service]!
 
+    getServiceCoordinates:[CoordinatesServ]! 
+		getCoordinatesByService(service_id: Int!):[CoordinatesServ]! 
+
     getCoordinates: [Coordinates]!
     getCoordinatesbyRequest(request: Int!): [Coordinates]!
 
@@ -310,6 +313,8 @@ const typeDefs = gql`
     deleteService(id: Int!): Service
 
     createServCoordinates(coordinate: coordinatesServInput!): CoordinatesServ!
+		deleteServCoordinates(id: Int!):CoordinatesServ
+
 
     createCoordinates(coordinate: coordinatesInput!): Coordinates!
     updateCoordinates(
@@ -324,11 +329,9 @@ const typeDefs = gql`
     deleteNotification(notification_id: String!): Notification
 
     newVehicle(vehicle: vehicleInput!): Vehicle!
-    newRequest(
-      req: requestInput!
-      coor1: coordinatesInput!
-      coor2: coordinatesInput!
-    ): Request!
+    newRequest(req: requestInput!, coor1: coordinatesInput!  ,   coor2: coordinatesInput!    ): Request!
+
+    newService(ser: serviceInput,! coor1: coordinatesServInput! ,coor2:coordinatesServInput! ,reqs: [requestInput]): Service!
   }
 `;
 
