@@ -110,7 +110,7 @@ const resolvers = {
             console.log(result);
             return result;
         },
-        
+
         getCoordinates: async(_) => {
             const result = await axios.get(`${URLCoordinates}`)
                 .then(res => res.data);
@@ -138,12 +138,12 @@ const resolvers = {
 
         //NOTIFICATIONS Q -------------------------------------------------------------------
         getNotifications: async(_, { token }) => {
-    /*         const result = await axios.get(`${URLAuth}/api/user/verify-user?access_token=${token}`, "", config)
-            .then(res => res.data); */
+            /*         const result = await axios.get(`${URLAuth}/api/user/verify-user?access_token=${token}`, "", config)
+                    .then(res => res.data); */
             const user = await axios.get(`${URLAuth}/api/user/verify-user?access_token=${token}`, "", config);
 
             const result = await axios.get(`${URLNotification}/all/${user.data.userMail}`).then(res => res.data);
-            
+
             return result;
         }
     },
@@ -341,10 +341,11 @@ const resolvers = {
             return request;
         },
 
-        newService: async(_, {ser, coor1, coor2, reqs}) => {
-            const service = await axios.post(`${URLService}/service`, JSON.stringify(service))
+        newService: async(_, { ser, coor1, coor2, coords }) => {
+            /*const service = await axios.post(`${URLService}/service`, ser)
                 .then(res => res.data);
 
+            console.log(service)
 
             coor1.service_id = service.service_id;
             coor2.service_id = service.service_id;
@@ -354,12 +355,23 @@ const resolvers = {
                 .then(res => res.data);
             const c2 = await axios.post(`${URLServCoordinates}`, coor2)
                 .then(res => res.data);
+*/
+            for (var coord of coords) {
+                const result = await axios.put(`${URLCoordinates}/${coord.coordinates_id}`, coord)
+                    .then((res) => {
+                        console.log(res.data.request)
+                        const result2 = axios.get(`${URLRequest}/request/${res.data.request}`)
+                            .then((res2) => {
+                                console.log(res2.data)
+                                res2.data.service_id = 2; //Esto está quemado, pero la idea es que reciba el id del service creado
+                                const result3 = axios.put(`${URLRequest}/request/${res.data.request}`, res2.data)
+                                    .then(res => res.data);
+                                return result3;
 
-
-            for(var reqInput of reqs){
-                const reqResult = await axios.put(`${URLRequest}/request/${reqInput.request_id}`, reqInput)
-                    .then(res => res.data);
+                            })
+                    });
             }
+
 
 
             return service;

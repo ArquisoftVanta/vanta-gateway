@@ -1,6 +1,6 @@
 const { gql } = require("apollo-server-express")
 
-const typeDefs = gql`
+const typeDefs = gql `
   #USER AND AUTH typeDefs-----------------------------------
 
   type User {
@@ -168,6 +168,16 @@ const typeDefs = gql`
     order: Int
   }
 
+  input coordinatesInputId {
+    coordinates_id: Int!
+    request: Int
+    lat: String!
+    lng: String!
+    address: String!
+    type: String!
+    order: Int
+  }
+
   #MULTIMEDIAS_REQUEST typeDefs-------------------------
 
   type Multimedias {
@@ -190,9 +200,10 @@ const typeDefs = gql`
   type Service {
     service_id: Int!
     user_id: String!
-    date_: String!
-    state_service: Boolean!
-    vehicle_id: Int!
+    vehicle_id: String!
+    date: String!
+    time: String!
+    state_service: String!
     service_value: Float!
     places: Int!
   }
@@ -203,7 +214,7 @@ const typeDefs = gql`
     lat: String!
     lng: String!
     address_name: String!
-    type: Int!
+    type: String!
   }
 
   input coordinatesServInput {
@@ -211,14 +222,15 @@ const typeDefs = gql`
     lat: String!
     lng: String!
     address_name: String!
-    type: Int!
+    type: String!
   }
 
   input serviceInput {
     user_id: String!
-    date_: String!
-    state_service: Boolean!
-    vehicle_id: Int!
+    vehicle_id: String!
+    date: String!
+    time: String!
+    state_service: String!
     service_value: Float!
     places: Int!
   }
@@ -226,8 +238,9 @@ const typeDefs = gql`
   input serviceInputFull {
     service_id: Int!
     user_id: String!
-    date_: String!
-    state_service: Boolean!
+    date: String!
+    time: String!
+    state_service: String!
     vehicle_id: Int!
     service_value: Float!
     places: Int!
@@ -331,7 +344,7 @@ const typeDefs = gql`
     newVehicle(vehicle: vehicleInput!): Vehicle!
     newRequest(req: requestInput!, coor1: coordinatesInput!  ,   coor2: coordinatesInput!    ): Request!
 
-    newService(ser: serviceInput,! coor1: coordinatesServInput! ,coor2:coordinatesServInput! ,reqs: [requestInput]): Service!
+    newService(ser: serviceInput!, coor1: coordinatesServInput! ,coor2:coordinatesServInput! ,coords: [coordinatesInputId]): Service!
   }
 `;
 
