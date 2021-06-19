@@ -152,10 +152,20 @@ const resolvers = {
 
         //USER M ----------------------------------------------------------------------
         loginUser: async(_, { usermail, password }) => {
-            const result = await axios.post(`${URLAuth}/oauth/token?username=${usermail}&password=${password}&grant_type=password`, "", config)
+            const ldap = await axios.get(`${URLAuth}/api/user/loginLdap?username=${usermail}&password=${password}`, "", config)
                 .then(res => res.data);
-            console.log(result)
-            return result;
+            console.log(ldap);
+
+            //Quitar este comentario si no hay acceso al LDAP
+            //ldap = true
+            
+            if(ldap){
+                const result = await axios.post(`${URLAuth}/oauth/token?username=${usermail}&password=${password}&grant_type=password`, "", config)
+                    .then(res => res.data);
+                console.log(result)
+                return result;    
+            }
+            
         },
         registerUser: async(_, user) => {
             const result = await axios.post(`${URLAuth}/api/user/signup`, JSON.stringify(user.user), config)
