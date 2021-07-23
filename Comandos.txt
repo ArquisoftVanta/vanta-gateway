@@ -36,6 +36,10 @@ Reina - Vehicle:
  - Build: docker build -t vanta_api .
  - Run: sudo docker run --name vanta_api --network='host' -p 8000:8000 vanta_api
 
+Oscar - Proxy:
+ - Build: docker build -t vanta_proxy .
+ - Run: docker run  --network='host'  -p 4100:4100 vanta_proxy
+
  Front end:
  - Build: docker build -t vanta_wa .
  - Run: docker run --name vanta_wa --network='host' -p 3500:3500 vanta_wa
