@@ -128,7 +128,9 @@ const typeDefs = gql `
     engine: Int!
     gas_type: String!
   }
-
+  type Check{
+    valid: Boolean!
+  }
   #REQUEST typeDefs--------------------------------------
 
   type Request {
@@ -281,6 +283,7 @@ const typeDefs = gql `
 
     getVehicle(id: Int!): Vehicle!
     getVehicles: [Vehicle]!
+    checkPlaca(placa: String!): Check!
 
     getRequestbyUser(user_id: String!): [Request]!
     getRequestActive(active: String!): [Request]!

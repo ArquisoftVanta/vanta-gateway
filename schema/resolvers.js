@@ -57,6 +57,13 @@ const resolvers = {
                 .then(res => res.data.data);
             return result;
         },
+        checkPlaca: async(_, {placa}) =>{
+            /*
+            const result = await axios.get(`${URLVehicles}/check/${placa}`)
+                .then(res => res.data.data);
+            return result;*/
+            return {"valid": true};  
+        },
 
 
         //REQUEST Q ----------------------------------------------------------------------
