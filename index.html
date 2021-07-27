@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Chat</title>
+    <style type="text/css">
+      #chatBox {
+        height: 200px;
+        overflow-y: scroll;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form id="chatPicker">
+      <input size="35" type="text" id="user" />
+      <input size="35" type="text" id="chat" />
+      <input type="submit" />
+    </form>
+    <div id="chatBox"></div>
+    <form id="formChat" autocomplete="off">
+      <input size="35" type="text" id="message" />
+      <input type="submit" />
+    </form>
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      $(function () {
+        const URL = document.location.origin;
+		console.log(URL)
+        let socket = io(URL, { autoConnect: false });
+        let chat = $("#chatBox");
+        let message = $("#message");
+        let formChat = $("#formChat");
+
+        let chatUser = $("#user");
+        let chatId = $("#chat");
+        let chatPicker = $("#chatPicker");
+
+        //Send Message into chat
+        formChat.submit(function (e) {
+          e.preventDefault();
+		
+			socket.emit("private message", {
+                content: message.val(),
+                user: chatUser.val(),
+                chatId: chatId.val(),
+              });
+			  
+			chat.append(
+			"<strong>" +
+			  chatUser.val() +
+			  ": </strong>" +
+			  message.val() +
+			  "<br>"
+			);
+			
+			message.val("");
+			chat.scrollTop(chat[0].scrollHeight);
+        });
+
+        //Get a Chat from the Database
+        chatPicker.submit(function (e) {
+			e.preventDefault();
+
+			var usr = chatUser.val();
+			var cht = chatId.val();
+			socket.auth = { usr, cht };
+			socket.connect();
+			console.log(socket);
+        });
+
+        //Add private message to chat when received
+        socket.on("private message", function ({ content, user }) {
+          chat.append("<strong>" + user + ": </strong>" + content + "<br>");
+          chat.scrollTop(chat[0].scrollHeight);
+        });
+      });
+    </script>
+  </body>
+</html>
