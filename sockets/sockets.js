@@ -1,5 +1,5 @@
 var sockets = function(socket, next){
-	console.log("gonorrea")
+
     const user = socket.handshake.auth.usr
     const chat = socket.handshake.auth.cht
 

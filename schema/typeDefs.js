@@ -130,6 +130,7 @@ const typeDefs = gql `
   }
   type Check{
     valid: Boolean!
+    num: Int!
   }
   #REQUEST typeDefs--------------------------------------
 
@@ -284,6 +285,7 @@ const typeDefs = gql `
     getVehicle(id: Int!): Vehicle!
     getVehicles: [Vehicle]!
     checkPlaca(placa: String!): Check!
+    checkCedula(cedula: String!): Check!
 
     getRequestbyUser(user_id: String!): [Request]!
     getRequestActive(active: String!): [Request]!

@@ -57,12 +57,29 @@ const resolvers = {
                 .then(res => res.data.data);
             return result;
         },
+
         checkPlaca: async(_, {placa}) =>{
             /*
             const result = await axios.get(`${URLVehicles}/check/${placa}`)
                 .then(res => res.data.data);
+            return result;
+
+            const result = await axios.get(`${URLService}/service/${car_id}`)
+                .then(res => res.data);
+            return result;
+            */
+            return {"valid": true, "num": 1};  
+        },
+        checkCedula: async(_, {cedula}) =>{
+            /*
+            const result = await axios.get(`${URLPerfil}/user/?user_mail=${cedula}`)
+                .then(res => res.data);
+            return result;
+
+            const result = await axios.get(`${URLRequest}/request/${userId}`)
+                .then(res => res.data);
             return result;*/
-            return {"valid": true};  
+            return {"valid": true, "num": 1};  
         },
 
 

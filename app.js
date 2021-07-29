@@ -14,9 +14,8 @@ const socketFunctionality = require("./sockets/socketFuncs.js");
 let app = express();
 let port = process.env.PORT || gateway;
 
-
-app.use(cors());
 //Connecting Apollo Server
+app.use(cors());
 const apolloServer = new ApolloServer({typeDefs, resolvers});
 apolloServer.applyMiddleware({app});
 
@@ -28,9 +27,8 @@ const server = app.listen(port, () =>{
 	console.log("App started on port  " + port)
 })
 
-let socket = io(server, { cors: { origin: "*" } });
-
 //Connecting Socket Server
+let socket = io(server, { cors: { origin: "*" } });
 socket.use(socketConnection);
 socket.on("connection", socketFunctionality);
 
