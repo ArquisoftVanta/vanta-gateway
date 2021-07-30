@@ -25,6 +25,12 @@ const resolvers = {
             return result;
         },
 
+        userByDoc: async(_, { user_doc }) => {
+            const result = await axios.get(`${URLPerfil}/user/?user_doc=${user_doc}`)
+                .then(res => res.data);
+            return result;
+        },
+
         userByToken: async(_, { token }) => {
             const result = await axios.get(`${URLAuth}/api/user/verify-user?access_token=${token}`, "", config)
                 .then(res => res.data);

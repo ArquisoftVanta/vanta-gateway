@@ -279,6 +279,8 @@ const typeDefs = gql `
 
     userById(user_id: String!): User!
 
+	userByDoc(user_doc: String!): User!
+
     chatByUser(user_id: String!): [Chat]
     chatById(user_id: String!, chat_id: String!): Chat
 
