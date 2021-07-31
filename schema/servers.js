@@ -1,4 +1,4 @@
-const url = 'host.docker.internal'
+const url = 'localhost'
 const gateway = '8000'
 
 const auth = '8443'
