@@ -375,8 +375,8 @@ const resolvers = {
             return request;
         },
 
-        newService: async(_, { ser, coor1, coor2, coords }) => {
-            /*const service = await axios.post(`${URLService}/service`, ser)
+        newService: async(_, { ser, coor1, coor2}) => {
+            const service = await axios.post(`${URLService}/service`, ser)
                 .then(res => res.data);
 
             console.log(service)
@@ -389,7 +389,8 @@ const resolvers = {
                 .then(res => res.data);
             const c2 = await axios.post(`${URLServCoordinates}`, coor2)
                 .then(res => res.data);
-*/
+
+            /*
             for (var coord of coords) {
                 const result = await axios.put(`${URLCoordinates}/${coord.coordinates_id}`, coord)
                     .then((res) => {
@@ -405,7 +406,7 @@ const resolvers = {
                             })
                     });
             }
-
+            */
 
 
             return service;

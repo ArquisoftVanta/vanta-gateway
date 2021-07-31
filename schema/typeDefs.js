@@ -206,26 +206,28 @@ const typeDefs = gql `
     vehicle_id: String!
     date: String!
     time: String!
-    state_service: String!
+    state_service: Boolean!
     service_value: Float!
     places: Int!
   }
 
   type CoordinatesServ {
     coordinates_id: Int!
-    service_id: Int!
+    service_id: Int
     lat: String!
     lng: String!
-    address_name: String!
-    type: String!
+    address: String!
+    typeC: String!
+    orderC: Int!
   }
 
   input coordinatesServInput {
     service_id: Int
     lat: String!
     lng: String!
-    address_name: String!
-    type: String!
+    address: String!
+    typeC: String!
+    orderC: Int!
   }
 
   input serviceInput {
@@ -233,7 +235,7 @@ const typeDefs = gql `
     vehicle_id: String!
     date: String!
     time: String!
-    state_service: String!
+    state_service: Boolean!
     service_value: Float!
     places: Int!
   }
@@ -243,7 +245,7 @@ const typeDefs = gql `
     user_id: String!
     date: String!
     time: String!
-    state_service: String!
+    state_service: Boolean!
     vehicle_id: Int!
     service_value: Float!
     places: Int!
@@ -347,9 +349,8 @@ const typeDefs = gql `
     deleteNotification(notification_id: String!): Notification
 
     newVehicle(vehicle: vehicleInput!): Vehicle!
-    newRequest(req: requestInput!, coor1: coordinatesInput!  ,   coor2: coordinatesInput!    ): Request!
-
-    newService(ser: serviceInput!, coor1: coordinatesServInput! ,coor2:coordinatesServInput! ,coords: [coordinatesInputId]): Service!
+    newRequest(req: requestInput!, coor1: coordinatesInput!,   coor2: coordinatesInput!    ): Request!
+    newService(ser: serviceInput!, coor1: coordinatesServInput!, coor2:coordinatesServInput!): Service!
   }
 `;
 
