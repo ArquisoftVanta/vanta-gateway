@@ -64,6 +64,7 @@ const resolvers = {
             return result;
         },
 
+        //INTERFACE Q ----------------------------------------------------------------------
         checkPlaca: async(_, {placa}) =>{
             /*
             const result = await axios.get(`${URLVehicles}/check/${placa}`)
@@ -76,16 +77,40 @@ const resolvers = {
             */
             return {"valid": true, "num": 1};  
         },
-        checkCedula: async(_, {cedula}) =>{
-            /*
-            const result = await axios.get(`${URLPerfil}/user/?user_mail=${cedula}`)
-                .then(res => res.data);
-            return result;
 
-            const result = await axios.get(`${URLRequest}/request/${userId}`)
-                .then(res => res.data);
-            return result;*/
-            return {"valid": true, "num": 1};  
+        checkCedula: async(_, {cedula}) =>{
+            var valid;
+            var num;
+
+            //Get HTTP request for the user
+            const resultUser = await axios.get(`${URLPerfil}/user/?user_doc=${cedula}`)
+                .then(res => res.data)
+                .catch(err => false)           
+            
+
+            if(resultUser){
+                valid = true;
+                
+                //If user exists look for the amount of requests in DB    
+                const resultRequest = await axios.get(`${URLRequest}/requestUser/?user=${resultUser.user_mail}`)
+                    .then(res => res.data)
+                    .catch(err => false)
+
+                console.log(resultRequest);
+                if(resultRequest){
+                    num = resultRequest.length;
+                }else{
+                    num = 0;
+                }
+
+            }else{
+                //If user doesnt exist return false
+                valid = false;
+                num = 0;
+            }
+
+            
+            return {"valid": valid, "num": num};  
         },
 
 
@@ -179,14 +204,13 @@ const resolvers = {
     },
     Mutation: {
 
-
         //USER M ----------------------------------------------------------------------
         loginUser: async(_, { usermail, password }) => {
             const ldap = await axios.get(`${URLAuth}/api/user/loginLdap?username=${usermail}&password=${password}`, "", config)
                 .then(res => res.data);
             console.log(ldap);
 
-            //Quitar este comentario si no hay acceso al LDAP
+            //---Quitar el comentario de abajo si no hay acceso al LDAP---
             //ldap = true
             
             if(ldap){
@@ -348,6 +372,7 @@ const resolvers = {
         //--------------------------------------RESOLVERS WITH MULTIPLE CALLS------------------------------------
         //-------------------------------------------------------------------------------------------------------
 
+        //Only allows to create vehicles with a valid user
         newVehicle: async(_, { vehicle }) => {
             var userChecker;
 
@@ -367,6 +392,7 @@ const resolvers = {
             }
         },
 
+        //Creates a request with its coordinates
         newRequest: async(_, { req, coor1, coor2 }) => {
             const request = await axios.post(`${URLRequest}/request/`, req)
                 .then(res => res.data);
