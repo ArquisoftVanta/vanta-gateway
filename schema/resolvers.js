@@ -66,37 +66,52 @@ const resolvers = {
 
         //INTERFACE Q ----------------------------------------------------------------------
         checkPlaca: async(_, {placa}) =>{
-            /*
-            const result = await axios.get(`${URLVehicles}/check/${placa}`)
-                .then(res => res.data.data);
-            return result;
+            var valid;
+            var num;
 
-            const result = await axios.get(`${URLService}/service/${car_id}`)
-                .then(res => res.data);
-            return result;
+            /*
+            const resultCar = await axios.get(`${URLVehicles}/check/${placa}`)
+                .then(res => res.data.data)
+                .then(err => false)
             */
-            return {"valid": true, "num": 1};  
+            var resultCar = true;
+            var car_id = 2;
+
+            if(resultCar){
+                valid = true;
+                //If Car exists look for the amount of services in DB    
+                const resultService = await axios.get(`${URLService}/service/vehicle_id/${car_id}`)
+                    .then(res => res.data)
+                    .catch(err => false);
+
+                if(resultService){
+                    num = resultService.length
+                }else{
+                    num = 0
+                }
+            }else{
+                valid = false;
+                num = 0;   
+            }            
+            
+            return {"valid": valid, "num": num};  
         },
 
         checkCedula: async(_, {cedula}) =>{
             var valid;
             var num;
-
             //Get HTTP request for the user
             const resultUser = await axios.get(`${URLPerfil}/user/?user_doc=${cedula}`)
                 .then(res => res.data)
                 .catch(err => false)           
             
-
             if(resultUser){
                 valid = true;
-                
                 //If user exists look for the amount of requests in DB    
                 const resultRequest = await axios.get(`${URLRequest}/requestUser/?user=${resultUser.user_mail}`)
                     .then(res => res.data)
                     .catch(err => false)
 
-                console.log(resultRequest);
                 if(resultRequest){
                     num = resultRequest.length;
                 }else{
@@ -108,8 +123,36 @@ const resolvers = {
                 valid = false;
                 num = 0;
             }
+            return {"valid": valid, "num": num};  
+        },
 
-            
+        checkCedulaService: async(_, {cedula}) =>{
+            var valid;
+            var num;
+            //Get HTTP request for the user
+            const resultUser = await axios.get(`${URLPerfil}/user/?user_doc=${cedula}`)
+                .then(res => res.data)
+                .catch(err => false)
+            console.log(resultUser)  
+         
+            if(resultUser){
+                valid = true;
+                //If user exists look for the amount of services in DB    
+                const resultService = await axios.get(`${URLService}/service/user_id/${resultUser.user_mail}`)
+                    .then(res => res.data)
+                    .catch(err => false);
+                console.log(resultService)
+                if(resultService){
+                    num = resultService.length;
+                }else{
+                    num = 0;
+                }
+
+            }else{
+                //If user doesnt exist return false
+                valid = false;
+                num = 0;    
+            }            
             return {"valid": valid, "num": num};  
         },
 

@@ -1,7 +1,7 @@
-const url = 'localhost'
+const url = 'host.docker.internal'
 const gateway = '8000'
 
-const auth = '8443'
+const auth = '8080'
 const perfil = '8200'
 const request = '8300'
 const viajes = '8400'

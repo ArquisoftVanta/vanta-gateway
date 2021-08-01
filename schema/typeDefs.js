@@ -289,6 +289,7 @@ const typeDefs = gql `
     getVehicles: [Vehicle]!
     checkPlaca(placa: String!): Check!
     checkCedula(cedula: String!): Check!
+    checkCedulaService(cedula: String!): Check!
 
     getRequestbyUser(user_id: String!): [Request]!
     getRequestActive(active: String!): [Request]!
