@@ -79,7 +79,7 @@ const resolvers = {
             if(resultCar){
                 valid = true;
                 //If Car exists look for the amount of services in DB    
-                const resultService = await axios.get(`${URLService}/service/vehicle_id/${resultCar.id}`)
+                const resultService = await axios.get(`${URLService}/service/vehicle_id/${resultCar.license_plate}`)
                     .then(res => res.data)
                     .catch(err => false);
 
