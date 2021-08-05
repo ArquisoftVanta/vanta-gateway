@@ -1,13 +1,13 @@
 const url = process.env.HOST || 'localhost'
-const gateway = '8000'
+const gateway = process.env.API || '8000'
 
-const auth = '8443'
-const perfil = '8200'
-const request = '8300'
-const viajes = '8400'
-const vehicles = '3001'
-const chat = '8600'
-const multimedia = '8700'
-const notificaciones = '3000'
+const auth = process.env.AUTH || '8443'
+const perfil = process.env.PRF || '8200'
+const request = process.env.RQT || '8300'
+const viajes = process.env.VIJ || '8400'
+const vehicles = process.env.VHC || '3001'
+const chat = process.env.CHT || '8600'
+const multimedia = process.env.MULT || '8700'
+const notificaciones = process.env.NOTS || '3000'
 
 module.exports = {url, auth, perfil, request, viajes, vehicles, chat, multimedia, notificaciones, gateway}
