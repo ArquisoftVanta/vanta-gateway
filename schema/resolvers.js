@@ -69,13 +69,6 @@ const resolvers = {
             var valid;
             var num;
 
-            console.log(placa)
-
-            const resultCar = await axios.get(`${URLVehicles}/plate_search/${placa}`)
-                .then(res => res.data.data[0])
-
-            console.log(resultCar)
-
             const resultCar = await axios.get(`${URLVehicles}/plate_search/${placa}`)
                 .then(res => res.data.data[0])
 
