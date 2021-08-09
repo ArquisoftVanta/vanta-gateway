@@ -76,6 +76,11 @@ const resolvers = {
 
             console.log(resultCar)
 
+            const resultCar = await axios.get(`${URLVehicles}/plate_search/${placa}`)
+                .then(res => res.data.data[0])
+
+            console.log(resultCar)
+
             if (resultCar) {
                 valid = true;
                 //If Car exists look for the amount of services in DB    
