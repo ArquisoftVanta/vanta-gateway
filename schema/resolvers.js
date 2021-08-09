@@ -65,7 +65,7 @@ const resolvers = {
         },
 
         //INTERFACE Q ----------------------------------------------------------------------
-        checkPlaca: async(_, {placa}) =>{
+        checkPlaca: async(_, { placa }) => {
             var valid;
             var num;
 
@@ -77,83 +77,83 @@ const resolvers = {
             var resultCar = true;
             var car_id = 2;
 
-            if(resultCar){
+            if (resultCar) {
                 valid = true;
                 //If Car exists look for the amount of services in DB    
                 const resultService = await axios.get(`${URLService}/service/vehicle_id/${car_id}`)
                     .then(res => res.data)
                     .catch(err => false);
 
-                if(resultService){
+                if (resultService) {
                     num = resultService.length
-                }else{
+                } else {
                     num = 0
                 }
-            }else{
-                valid = false;
-                num = 0;   
-            }            
-            
-            return {"valid": valid, "num": num};  
-        },
-
-        checkCedula: async(_, {cedula}) =>{
-            var valid;
-            var num;
-            //Get HTTP request for the user
-            const resultUser = await axios.get(`${URLPerfil}/user/?user_doc=${cedula}`)
-                .then(res => res.data)
-                .catch(err => false)           
-            
-            if(resultUser){
-                valid = true;
-                //If user exists look for the amount of requests in DB    
-                const resultRequest = await axios.get(`${URLRequest}/requestUser/?user=${resultUser.user_mail}`)
-                    .then(res => res.data)
-                    .catch(err => false)
-
-                if(resultRequest){
-                    num = resultRequest.length;
-                }else{
-                    num = 0;
-                }
-
-            }else{
-                //If user doesnt exist return false
+            } else {
                 valid = false;
                 num = 0;
             }
-            return {"valid": valid, "num": num};  
+
+            return { "valid": valid, "num": num };
         },
 
-        checkCedulaService: async(_, {cedula}) =>{
+        checkCedula: async(_, { cedula }) => {
             var valid;
             var num;
             //Get HTTP request for the user
             const resultUser = await axios.get(`${URLPerfil}/user/?user_doc=${cedula}`)
                 .then(res => res.data)
                 .catch(err => false)
-            console.log(resultUser)  
-         
-            if(resultUser){
+
+            if (resultUser) {
+                valid = true;
+                //If user exists look for the amount of requests in DB    
+                const resultRequest = await axios.get(`${URLRequest}/requestUser/?user=${resultUser.user_mail}`)
+                    .then(res => res.data)
+                    .catch(err => false)
+
+                if (resultRequest) {
+                    num = resultRequest.length;
+                } else {
+                    num = 0;
+                }
+
+            } else {
+                //If user doesnt exist return false
+                valid = false;
+                num = 0;
+            }
+            return { "valid": valid, "num": num };
+        },
+
+        checkCedulaService: async(_, { cedula }) => {
+            var valid;
+            var num;
+            //Get HTTP request for the user
+            const resultUser = await axios.get(`${URLPerfil}/user/?user_doc=${cedula}`)
+                .then(res => res.data)
+                .catch(err => false)
+            console.log(resultUser)
+
+            if (resultUser) {
                 valid = true;
                 //If user exists look for the amount of services in DB    
                 const resultService = await axios.get(`${URLService}/service/user_id/${resultUser.user_mail}`)
                     .then(res => res.data)
                     .catch(err => false);
                 console.log(resultService)
-                if(resultService){
+                if (resultService) {
                     num = resultService.length;
-                }else{
+                } else {
                     num = 0;
                 }
 
-            }else{
+            } else {
                 //If user doesnt exist return false
                 valid = false;
-                num = 0;    
-            }            
-            return {"valid": valid, "num": num};  
+                num = 0;
+            }
+            return { "valid": valid, "num": num };
         },
 
 
@@ -255,14 +255,14 @@ const resolvers = {
 
             //---Quitar el comentario de abajo si no hay acceso al LDAP---
             //ldap = true
-            
-            if(ldap){
+
+            if (ldap) {
                 const result = await axios.post(`${URLAuth}/oauth/token?username=${usermail}&password=${password}&grant_type=password`, "", config)
                     .then(res => res.data);
                 console.log(result)
-                return result;    
+                return result;
             }
-            
+
         },
         registerUser: async(_, user) => {
             const result = await axios.post(`${URLAuth}/api/user/signup`, JSON.stringify(user.user), config)
@@ -361,12 +361,6 @@ const resolvers = {
                 .then(res => res.data);
             return result;
         },
-        deleteService: async(_, { id }) => {
-            const result = await axios.delete(`${URLService}/service/${id}`)
-                .then(res => res.data);
-            return result;
-        },
-
         createServCoordinates: async(_, { coordinate }) => {
             const result = await axios.post(`${URLServCoordinates}`, JSON.stringify(coordinate))
                 .then(res => res.data);
@@ -450,11 +444,9 @@ const resolvers = {
             return request;
         },
 
-        newService: async(_, { ser, coor1, coor2}) => {
+        newService: async(_, { ser, coor1, coor2, coords }) => {
             const service = await axios.post(`${URLService}/service`, ser)
                 .then(res => res.data);
-
-            console.log(service)
 
             coor1.service_id = service.service_id;
             coor2.service_id = service.service_id;
@@ -465,28 +457,79 @@ const resolvers = {
             const c2 = await axios.post(`${URLServCoordinates}`, coor2)
                 .then(res => res.data);
 
-            /*
+            console.log(coords)
             for (var coord of coords) {
-                const result = await axios.put(`${URLCoordinates}/${coord.coordinates_id}`, coord)
-                    .then((res) => {
-                        console.log(res.data.request)
-                        const result2 = axios.get(`${URLRequest}/request/${res.data.request}`)
-                            .then((res2) => {
-                                console.log(res2.data)
-                                res2.data.service_id = 2; //Esto está quemado, pero la idea es que reciba el id del service creado
-                                const result3 = axios.put(`${URLRequest}/request/${res.data.request}`, res2.data)
-                                    .then(res => res.data);
-                                return result3;
-
-                            })
-                    });
+                if (coord.coordinates_id > 0) {
+                    const coordresult = await axios.get(`${URLCoordinates}/${coord.coordinates_id}`)
+                        .then((res21) => {
+                            res21.data.order = coord.order;
+                            const result = axios.put(`${URLCoordinates}/${coord.coordinates_id}`, res21.data)
+                                .then((res) => {
+                                    const result2 = axios.get(`${URLRequest}/request/${res.data.request}`)
+                                        .then((res2) => {
+                                            res2.data.active = 1
+                                            res2.data.service_id = service.service_id; //Esto está quemado, pero la idea es que reciba el id del service creado
+                                            const result3 = axios.put(`${URLRequest}/request/${res.data.request}`, res2.data)
+                                                .then((res) => {});
+                                            return result3;
+                                        })
+                                });
+                        });
+                }
             }
-            */
-
-
             return service;
-        }
+        },
 
+        deleteService: async(_, { id }) => {
+            const result1 = await axios.get(`${URLRequest}/requestService/?service=${id}`)
+                .then((res1) => {
+                    for (var request of res1.data) {
+                        const result2 = axios.get(`${URLRequest}/request/${request.request_id}`)
+                            .then((res2) => {
+                                res2.data.service_id = null
+                                res2.data.active = 0
+                                const result3 = axios.put(`${URLRequest}/request/${request.request_id}`, res2.data)
+                                    .then((res3) => {});
+                            })
+                    }
+                    const result = axios.delete(`${URLService}/service/${id}`)
+                        .then(res => res.data);
+                    return result;
+                })
+        },
+
+        showServicesbyUser: async(n_, { user_id }) => {
+            const resultService = await axios.get(`${URLService}/service/user_id/${user_id}`)
+                .then(resService => {
+                    var arrayComplete = []
+                    for (var service of resService.data) {
+                        var arrayS = []
+                        arrayS.push(service)
+                        const resultCoordServ = axios.get(`${URLServCoordinates}/${service.service_id}`)
+                            .then(resCoorSer => {
+                                arrayS.push(resCoorSer.data);
+                                const resultRequestByServices = axios.get(`${URLRequest}/requestService/?service=${service.service_id}`)
+                                    .then((resRequestByServices) => {
+                                        arrayS.push(resRequestByServices.data)
+                                        var arrayCoord = []
+                                        for (var request of resRequestByServices.data) {
+                                            const resultCoor = axios.get(`${URLRequest}/coordinatesRequest/?request=${request.request_id}`)
+                                                .then(resCoor => {
+                                                    arrayCoord.push(resCoor.data)
+                                                });
+                                            arrayS.push(arrayCoord)
+                                        }
+                                    })
+
+                            });
+                        arrayComplete.push(arrayS)
+                    }
+                    console.log(arrayComplete)
+                    return arrayComplete;
+
+                })
+
+        }
     }
 };
 module.exports = { resolvers };
