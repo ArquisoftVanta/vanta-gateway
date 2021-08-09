@@ -38,8 +38,13 @@ Reina - Vehicle:
 
 Oscar - Proxy:
  - Build: docker build -t vanta_proxy .
- - Run: docker run  --network='host'  -p 4100:4100 vanta_proxy
+ - Run: docker run --name vanta_proxy --network='host'  -p 4100:4100 vanta_proxy
 
  Front end:
  - Build: docker build -t vanta_wa .
  - Run: docker run --name vanta_wa --network='host' -p 3500:3500 vanta_wa
+ 
+Mauro - Interface:
+ - Maven: mvn package -DskipTests
+ - Build: docker build -t authentication_ms .
+ - Run: docker run --name vanta_auth_ms --network='host' -p 8080:8443 authentication_ms

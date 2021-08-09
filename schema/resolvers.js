@@ -69,20 +69,21 @@ const resolvers = {
             var valid;
             var num;
 
-            /*
-            const resultCar = await axios.get(`${URLVehicles}/check/${placa}`)
-                .then(res => res.data.data)
-                .then(err => false)
-            */
-            var resultCar = true;
-            var car_id = 2;
+            console.log(placa)
+
+            const resultCar = await axios.get(`${URLVehicles}/plate_search/${placa}`)
+                .then(res => res.data.data[0])
+
+            console.log(resultCar)
 
             if (resultCar) {
                 valid = true;
                 //If Car exists look for the amount of services in DB    
-                const resultService = await axios.get(`${URLService}/service/vehicle_id/${car_id}`)
+                const resultService = await axios.get(`${URLService}/service/vehicle_id/${resultCar.license_plate}`)
                     .then(res => res.data)
                     .catch(err => false);
+
+                console.log(resultService)
 
                 if (resultService) {
                     num = resultService.length
@@ -100,10 +101,14 @@ const resolvers = {
         checkCedula: async(_, { cedula }) => {
             var valid;
             var num;
-            //Get HTTP request for the user
+
+            console.log(cedula)
+                //Get HTTP request for the user
             const resultUser = await axios.get(`${URLPerfil}/user/?user_doc=${cedula}`)
                 .then(res => res.data)
                 .catch(err => false)
+
+            console.log(resultUser)
 
             if (resultUser) {
                 valid = true;
@@ -111,6 +116,8 @@ const resolvers = {
                 const resultRequest = await axios.get(`${URLRequest}/requestUser/?user=${resultUser.user_mail}`)
                     .then(res => res.data)
                     .catch(err => false)
+
+                console.log(resultRequest)
 
                 if (resultRequest) {
                     num = resultRequest.length;
@@ -129,10 +136,13 @@ const resolvers = {
         checkCedulaService: async(_, { cedula }) => {
             var valid;
             var num;
+            console.log(cedula)
+
             //Get HTTP request for the user
             const resultUser = await axios.get(`${URLPerfil}/user/?user_doc=${cedula}`)
                 .then(res => res.data)
                 .catch(err => false)
+
             console.log(resultUser)
 
             if (resultUser) {
@@ -361,6 +371,12 @@ const resolvers = {
                 .then(res => res.data);
             return result;
         },
+        deleteService: async(_, { id }) => {
+            const result = await axios.delete(`${URLService}/service/${id}`)
+                .then(res => res.data);
+            return result;
+        },
+
         createServCoordinates: async(_, { coordinate }) => {
             const result = await axios.post(`${URLServCoordinates}`, JSON.stringify(coordinate))
                 .then(res => res.data);
