@@ -181,6 +181,12 @@ const typeDefs = gql `
     order: Int
   }
 
+  input coordinatesUpdateId {
+    coordinates_id: Int!
+    order: Int!
+  }
+
+
   #MULTIMEDIAS_REQUEST typeDefs-------------------------
 
   type Multimedias {
@@ -352,7 +358,11 @@ const typeDefs = gql `
 
     newVehicle(vehicle: vehicleInput!): Vehicle!
     newRequest(req: requestInput!, coor1: coordinatesInput!,   coor2: coordinatesInput!    ): Request!
-    newService(ser: serviceInput!, coor1: coordinatesServInput!, coor2:coordinatesServInput!): Service!
+    newService(ser: serviceInput!, coor1: coordinatesServInput!, coor2:coordinatesServInput!, coords: [coordinatesUpdateId]): Service!
+    
+    showServicesbyUser(user_id: String!): [Service]
+
+    
   }
 `;
 
