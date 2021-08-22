@@ -184,13 +184,13 @@ const resolvers = {
             return result;
         },
         getRequest: async(_, { request_id }) => {
-            const result = await axios.get(`${URLRequest}/request/${request_id}`)
+            const result = await axios.get(`${URLRequest}/requestRe/${request_id}`)
                 .then(res => res.data);
             console.log(result);
             return result;
         },
         getRequests: async(_) => {
-            const result = await axios.get(`${URLRequest}/request`)
+            const result = await axios.get(`${URLRequest}/requestRe`)
                 .then(res => res.data);
             return result;
         },

@@ -5,6 +5,7 @@ Francisco - Multimedia:
 Oscar - Request:
  - Build: docker build -t request_ms .
  - Run: sudo docker run --name vanta_request_ms --network='host' -p 8300:8300 -e DB_HOST=127.0.0.1 -e DB_PORT=3306 -e DB_USER=searqui -e DB_PASSWORD=arquisoft -e DB_NAME=vanta_db -e URL=0.0.0.0:8300 request_ms
+ - Rep: sudo docker run --name vanta_request_ms --network='host' -p 8300:8300 -e DB_HOST=127.0.0.1 -e DB_HOST_REPLICA=127.0.0.1 -e DB_PORT=3306 -e DB_PORT_REPLICA=3306 -e DB_NAME_REPLICA=vanta_db -e DB_USER=searqui -e DB_PASSWORD=arquisoft -e DB_NAME=vanta_db -e URL=0.0.0.0:8300 request_ms
 
 Gonzalo - Auth:
  - Maven: mvn package -DskipTests
@@ -46,5 +47,5 @@ Oscar - Proxy:
  
 Mauro - Interface:
  - Maven: mvn package -DskipTests
- - Build: docker build -t authentication_ms .
- - Run: docker run --name vanta_auth_ms --network='host' -p 8080:8443 authentication_ms
+ - Build: docker build -t vanta_interface .
+ - Run: docker run --name vanta_interface --network='host' -p 1400:1400 vanta_interface
