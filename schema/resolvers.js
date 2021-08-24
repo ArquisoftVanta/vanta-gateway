@@ -478,7 +478,7 @@ const resolvers = {
                             res21.data.order = coord.order;
                             const result = axios.put(`${URLCoordinates}/${coord.coordinates_id}`, res21.data)
                                 .then((res) => {
-                                    const result2 = axios.get(`${URLRequest}/request/${res.data.request}`)
+                                    const result2 = axios.get(`${URLRequest}/requestRe/${res.data.request}`)
                                         .then((res2) => {
                                             let chatInput = {
                                                 user1: service.user_id,
