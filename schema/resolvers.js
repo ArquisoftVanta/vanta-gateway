@@ -1,4 +1,4 @@
-const { url, auth, perfil, chat, vehicles, request, viajes, multimedia, notificaciones } = require('./servers');
+const { url, v_url, auth, perfil, chat, vehicles, request, viajes, multimedia, notificaciones } = require('./servers');
 const axios = require('axios');
 const { getVariableValues } = require('graphql/execution/values');
 
