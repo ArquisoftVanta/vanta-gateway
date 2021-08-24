@@ -471,7 +471,7 @@ const resolvers = {
             const c2 = await axios.post(`${URLServCoordinates}`, coor2)
                 .then(res => res.data);
             for (var coord of coords) {
-                let aux = 0;
+                var aux = 0;
                 if (coord.coordinates_id > 0) {
                     const coordresult = await axios.get(`${URLCoordinates}/${coord.coordinates_id}`)
                         .then((res21) => {
