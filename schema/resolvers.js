@@ -13,7 +13,7 @@ const URLService = `http://${url}:${viajes}`;
 const URLServCoordinates = `http://${url}:${viajes}/service_coordinates`;
 const URLCoordinates = `http://${url}:${request}/coordinates`;
 const URLMultimedia = `http://${url}:${multimedia}`;
-const URLVehicles = `http://${url}:${vehicles}/vehicles`;
+const URLVehicles = `http://${v_url}:${vehicles}/vehicles`;
 const URLNotification = `http://${url}:${notificaciones}/notifications`;
 
 const resolvers = {

@@ -1,4 +1,5 @@
 const url = process.env.HOST || 'localhost'
+var v_url = process.env.VHOST || 'localhost'
 const gateway = process.env.API || '8000'
 
 const auth = process.env.AUTH || '8443'
