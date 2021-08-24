@@ -470,9 +470,8 @@ const resolvers = {
                 .then(res => res.data);
             const c2 = await axios.post(`${URLServCoordinates}`, coor2)
                 .then(res => res.data);
-
-            console.log(coords)
             for (var coord of coords) {
+                let aux = 0;
                 if (coord.coordinates_id > 0) {
                     const coordresult = await axios.get(`${URLCoordinates}/${coord.coordinates_id}`)
                         .then((res21) => {
@@ -481,6 +480,17 @@ const resolvers = {
                                 .then((res) => {
                                     const result2 = axios.get(`${URLRequest}/request/${res.data.request}`)
                                         .then((res2) => {
+                                            let chatInput = {
+                                                user1: service.user_id,
+                                                user2: res2.data.user_id
+                                            }
+
+                                            if (aux % 2 == 0) {
+                                                const result = axios.post(`${URLChat}`, chatInput)
+                                                    .then(res => res.data);
+                                            }
+                                            aux = aux + 1;
+
                                             res2.data.active = 1
                                             res2.data.service_id = service.service_id; //Esto está quemado, pero la idea es que reciba el id del service creado
                                             const result3 = axios.put(`${URLRequest}/request/${res.data.request}`, res2.data)
